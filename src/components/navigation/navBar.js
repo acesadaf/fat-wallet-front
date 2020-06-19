@@ -1,6 +1,5 @@
 import React from "react";
 import Logo from "./Wallet.png";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 const navBar = () => {
   return (
