@@ -1,13 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import NavBar from "./components/navigation/navBar";
 import Main from "./components/Main";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { render } from "@testing-library/react";
 
 function App() {
   return (
-    <div>
+    <div
+      style={{
+        background: "#add8e6",
+      }}
+    >
       <NavBar />
       <Main />
     </div>
