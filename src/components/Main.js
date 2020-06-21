@@ -6,7 +6,7 @@ class Main extends Component {
     return (
       <div
         className="px-5"
-        style={{ display: "flex", justifyContent: "right" }}
+        style={{ display: "flex", justifyContent: "flex-end" }}
       >
         <form
           style={{
