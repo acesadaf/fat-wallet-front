@@ -11,6 +11,9 @@ class AddExpense extends React.Component {
       date: new Date(),
       description: "",
     };
+    this.selectedCat = "Choose an Option";
+    this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -40,6 +43,7 @@ class AddExpense extends React.Component {
       },
       () => console.log(this.state)
     );
+    this.selectedCat = eventKey;
   }
 
   render() {
@@ -128,17 +132,20 @@ class AddExpense extends React.Component {
                 variant="primary"
                 id="dropdown-basic"
               >
-                Choose an Option
+                {this.selectedCat}
               </Dropdown.Toggle>
 
               <Dropdown.Menu style={{ width: "100%" }}>
-                <Dropdown.Item eventKey="action ">Action</Dropdown.Item>
+                {this.categories.map((cat) => (
+                  <Dropdown.Item eventKey={cat}>{cat}</Dropdown.Item>
+                ))}
+                {/* <Dropdown.Item eventKey="action ">Action</Dropdown.Item>
                 <Dropdown.Item eventKey="another" href="#/action-2">
                   Another action
                 </Dropdown.Item>
                 <Dropdown.Item eventKey="something" href="#/action-3">
                   Something else
-                </Dropdown.Item>
+                </Dropdown.Item> */}
               </Dropdown.Menu>
             </Dropdown>
           </div>

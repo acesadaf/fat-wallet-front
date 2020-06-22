@@ -13,10 +13,8 @@ class Main extends Component {
           justifyContent: "center",
         }}
       >
-        <div
-          style={{ display: "flex", justifyContent: "center", width: "100vh" }}
-        >
-          {/* <Graph/> */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Graph />
         </div>
         <div
           className="px-5"
