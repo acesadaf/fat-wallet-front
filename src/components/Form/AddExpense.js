@@ -15,8 +15,11 @@ class AddExpense extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
-
-  handleSubmit(event) {}
+  //alert("Your favorite flavor is: " + this.state.email);
+  handleSubmit() {
+    const { name, amount, category, date, description } = this.state;
+    alert("Inputs" + name + amount + category + date + description);
+  }
 
   handleChange(event) {
     const target = event.target;
@@ -157,6 +160,7 @@ class AddExpense extends React.Component {
           style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
           type="submit"
           className="btn btn-primary btn-block"
+          onSubmit={this.handleSubmit}
         >
           Submit
         </button>
