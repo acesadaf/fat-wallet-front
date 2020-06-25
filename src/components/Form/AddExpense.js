@@ -56,6 +56,7 @@ class AddExpense extends React.Component {
       <form
         style={{
           width: "80vh",
+          //border: "1px solid black",
         }}
         onSubmit={this.handleSubmit}
       >
@@ -92,6 +93,7 @@ class AddExpense extends React.Component {
             display: "flex",
             flexdirection: "row",
             justifyContent: "space-around",
+            //border: "1px solid black",
           }}
         >
           <div className="form-group" style={{ width: "100%" }}>
@@ -106,62 +108,55 @@ class AddExpense extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group" style={{ width: "100vh" }}>
+          <div className="form-group" style={{ width: "100%" }}>
             <label>Purchase Category</label>
-            {/* <input 
-                            list="browsers" 
-                            name="browser"
-                            className="form-control"
-                            placeholder="Choose an option"
-                        />
-                        <datalist id="browsers">
-                            <option value="Internet Explorer"/>
-                            <option value="Firefox"/>
-                            <option value="Chrome"/>
-                            <option value="Opera"/>
-                            <option value="Safari"/>
-                        </datalist>
-                    </div>  */}
-            <Dropdown
-              name="category"
-              value={this.state.category}
-              onSelect={this.handleSelect}
+            <div
+              style={{
+                display: "flex",
+                flexdirection: "row",
+              }}
             >
-              <Dropdown.Toggle
+              <Dropdown
+                name="category"
+                value={this.state.category}
+                onSelect={this.handleSelect}
                 style={{
-                  width: "100%",
-                  color: "black",
+                  flex: 10,
+                }}
+              >
+                <Dropdown.Toggle
+                  style={{
+                    width: "100%",
+                    color: "black",
+                    background: "#fcda4f",
+                    border: "#fcda4f",
+                  }}
+                  variant="primary"
+                  id="dropdown-basic"
+                >
+                  {this.selectedCat}
+                </Dropdown.Toggle>
+                <Dropdown.Menu style={{ width: "100%" }}>
+                  {this.categories.map((cat) => (
+                    <Dropdown.Item eventKey={cat}>{cat}</Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+              <button
+                type="button"
+                class="btn btn-warning"
+                style={{
                   background: "#fcda4f",
                   border: "#fcda4f",
+                  display: "flex",
+                  width: "100%",
+                  flex: 1,
+                  justifyContent: "center",
                 }}
-                variant="primary"
-                id="dropdown-basic"
               >
-                {this.selectedCat}
-              </Dropdown.Toggle>
-              {/* <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                Custom toggle
-              </Dropdown.Toggle> */}
-
-              <Dropdown.Menu style={{ width: "100%" }}>
-                {/* <Dropdown.Item eventKey="insert">
-                  <input
-                      style={{ 
-                        width: "100%",
-                        border: "white"
-            
-                      }}
-                      type= "text"
-                      placeholder = "Insert new item"
-                      onClick={this.handleClick}
-                  />
-                </Dropdown.Item> */}
-
-                {this.categories.map((cat) => (
-                  <Dropdown.Item eventKey={cat}>{cat}</Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
+                Edit
+              </button>
+            </div>
           </div>
         </div>
 
