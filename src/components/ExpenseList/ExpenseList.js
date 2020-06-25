@@ -4,56 +4,69 @@ import MaterialTable from 'material-table'
 
 
 
-class ExpenseList extends React.Component{
-
-    constructor (props){
-        super(props);
-        this.data = [
-            { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-            { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
-        ];
-        // this.theme  = {
-        //     palette: {
-        //       primary: {
-        //         main: '#4caf50',
-        //       },
-        //       secondary: {
-        //         main: '#ff9100',
-        //       },
-        //     },
-        // };
-    }
-
-
-    render() {
-        return(
-            
-            <MuiThemeProvider >
-                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
-                <MaterialTable 
-                // theme={this.theme}
-                style={{background: "#fcda4f"}}
-                title="Styling with MuiThemeProvider Preview"
-                columns={[
-                    {
-                    title: 'Name', field: 'name',
-                    },
-                    { title: 'Surname', field: 'surname' },
-                    { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-                    {
-                    title: 'Birth Place',
-                    field: 'birthCity',
-                    lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                    },
-                ]}
-                data = {this.data}
-                options={{
-                    selection: false
+export default function MaterialTableDemo() {
+    const [state, setState] = React.useState({
+      columns: [
+        { title: 'Name', field: 'name' },
+        { title: 'Amount', field: 'amount', type: 'numeric' },
+        { title: 'Date of Expense', field: 'dateOfExpense', type: 'date' },
+        { title: 'Category', field: 'category' },
+        {
+          title: 'Description',
+          field: 'description',
+        //   lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+        },
+      ],
+      data: [
+        { name: 'Mehmet', amount: 100, dateOfExpense: "12/11/2020", category: 'Food',  description: "adasdasdasdasd"},
+        { name: 'hmet', amount: 100, dateOfExpense: "2020-10-10", category: 'Food',  description: "adasdasdasdasd"},
+      ],
+    });
+  
+    return (
+        <div
+            style = {{
+                padding: "5%"
+            }}
+        >
+        
+        <MuiThemeProvider>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+            <MaterialTable
+                style = {{
+                    background: "#fcda4f"
                 }}
-                />
-            </MuiThemeProvider>
-        );
-    }
-}
-
-export default ExpenseList;
+                title="Expense History"
+                columns={state.columns}
+                data={state.data}
+                editable={{
+                onRowUpdate: (newData, oldData) =>
+                    new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                        if (oldData) {
+                        setState((prevState) => {
+                            const data = [...prevState.data];
+                            data[data.indexOf(oldData)] = newData;
+                            return { ...prevState, data };
+                        });
+                        }
+                    }, 600);
+                    }),
+                onRowDelete: (oldData) =>
+                    new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                        setState((prevState) => {
+                        const data = [...prevState.data];
+                        data.splice(data.indexOf(oldData), 1);
+                        return { ...prevState, data };
+                        });
+                    }, 600);
+                    }),
+                }}
+            />
+        </MuiThemeProvider>
+        </div>
+    );
+  }
