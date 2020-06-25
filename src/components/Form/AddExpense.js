@@ -17,6 +17,7 @@ class AddExpense extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
   //alert("Your favorite flavor is: " + this.state.email);
   handleSubmit() {
@@ -45,6 +46,10 @@ class AddExpense extends React.Component {
     );
     this.selectedCat = eventKey;
   }
+
+  // handleClick(event) {
+  //   event.preventDefault();
+  // }
 
   render() {
     return (
@@ -134,18 +139,27 @@ class AddExpense extends React.Component {
               >
                 {this.selectedCat}
               </Dropdown.Toggle>
+              {/* <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                Custom toggle
+              </Dropdown.Toggle> */}
 
               <Dropdown.Menu style={{ width: "100%" }}>
+                {/* <Dropdown.Item eventKey="insert">
+                  <input
+                      style={{ 
+                        width: "100%",
+                        border: "white"
+            
+                      }}
+                      type= "text"
+                      placeholder = "Insert new item"
+                      onClick={this.handleClick}
+                  />
+                </Dropdown.Item> */}
+
                 {this.categories.map((cat) => (
                   <Dropdown.Item eventKey={cat}>{cat}</Dropdown.Item>
                 ))}
-                {/* <Dropdown.Item eventKey="action ">Action</Dropdown.Item>
-                <Dropdown.Item eventKey="another" href="#/action-2">
-                  Another action
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="something" href="#/action-3">
-                  Something else
-                </Dropdown.Item> */}
               </Dropdown.Menu>
             </Dropdown>
           </div>
