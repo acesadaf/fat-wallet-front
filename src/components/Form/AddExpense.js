@@ -14,12 +14,17 @@ class AddExpense extends React.Component {
     this.selectedCat = "Choose an Option";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
 
+    this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     // this.handleClick = this.handleClick.bind(this);
   }
   //alert("Your favorite flavor is: " + this.state.email);
+  handleClick(event) {
+    this.props.callbackFromParent(true);
+  }
+
   handleSubmit() {
     const { name, amount, category, date, description } = this.state;
     alert("Inputs" + name + amount + category + date + description);
@@ -145,6 +150,7 @@ class AddExpense extends React.Component {
               <button
                 type="button"
                 class="btn btn-warning"
+                onClick={this.handleClick}
                 style={{
                   background: "#fcda4f",
                   border: "#fcda4f",
