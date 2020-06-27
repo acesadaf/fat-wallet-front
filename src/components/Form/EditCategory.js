@@ -1,4 +1,6 @@
 import React from "react";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MaterialTable from 'material-table'
 
 class EditCategory extends React.Component {
   constructor(props) {
@@ -12,9 +14,23 @@ class EditCategory extends React.Component {
 
   render() {
     return (
-      <button type="button" onClick={this.handleClick}>
-        Back
-      </button>
+      <div
+            style = {{
+                padding: "5%"
+            }}
+        >
+        
+
+        <button
+          style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
+          type="button"
+          className="btn btn-primary btn-block"
+          onClick={this.handleClick}
+        >
+          Back
+        </button>
+
+        </div>
     );
   }
 }
