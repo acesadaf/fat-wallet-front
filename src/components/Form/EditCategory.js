@@ -6,6 +6,27 @@ class EditCategory extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.printData = this.printData.bind(this);
+    this.state = {
+        columns: [
+            { title: 'Name', field: 'name' },
+            { title: 'Amount', field: 'amount', type: 'numeric' },
+            { title: 'Date of Expense', field: 'dateOfExpense', type: 'date' },
+            { title: 'Category', field: 'category' },
+            {
+              title: 'Description',
+              field: 'description',
+            },
+          ],
+          data: [
+            { name: 'Mehmet', amount: 100, dateOfExpense: "12/11/2020", category: 'Food',  description: "adasdasdasdasd"},
+            { name: 'hmet', amount: 100, dateOfExpense: "2020-10-10", category: 'Food',  description: "adasdasdasdasd"},
+          ],
+    };
+  }
+
+  printData(data){
+      console.log(data)
   }
 
   handleClick(event) {
@@ -14,14 +35,8 @@ class EditCategory extends React.Component {
 
   render() {
     return (
-      <div
-            style = {{
-                padding: "5%"
-            }}
-        >
-        
-
-        <button
+      <div>
+          <button
           style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
           type="button"
           className="btn btn-primary btn-block"
@@ -29,6 +44,72 @@ class EditCategory extends React.Component {
         >
           Back
         </button>
+        <MuiThemeProvider>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+            <MaterialTable
+                style = {{
+                    background: "#fcda4f"
+                }}
+                title="Expense History"
+                columns={this.state.columns}
+                data={this.state.data}
+                editable={{
+                onRowUpdate: (newData, oldData) =>{
+                  this.printData(newData);
+                  new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                        if (oldData) {
+                          
+                          this.setState((prevState) => {
+                            const data = [...prevState.data];
+                            data[data.indexOf(oldData)] = newData;
+                            return { ...prevState, data };
+                        });
+                        }
+                    }, 600);
+                    })
+                },
+                onRowDelete: (oldData) =>
+                    new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                        this.setState((prevState) => {
+                        const data = [...prevState.data];
+                        data.splice(data.indexOf(oldData), 1);
+                        return { ...prevState, data };
+                        });
+                    }, 600);
+                    }),
+
+                    onRowAdd: (newData) =>
+                    new Promise((resolve) => {
+                      setTimeout(() => {
+                        resolve();
+                        this.setState((prevState) => {
+                          const data = [...prevState.data];
+                          data.push(newData);
+                          return { ...prevState, data };
+                        });
+                      }, 600);
+                    }),
+
+                  // onRowAdd: newData =>
+                  // new Promise((resolve, reject) => {
+                  //   setTimeout(() => {
+                  //     this.setState(
+                  //       { data: [...this.state.data, newData]});
+    
+                  //       resolve();
+                  //   }, 1000);
+                  //   }),
+                }}
+            />
+            
+        </MuiThemeProvider>
+        
+
+        
 
         </div>
     );
@@ -36,3 +117,26 @@ class EditCategory extends React.Component {
 }
 
 export default EditCategory;
+
+
+
+
+// function MaterialTableDemo() {
+//   const [state, setState] = React.useState({
+//     columns: [
+//       { title: 'Name', field: 'name' },
+//       { title: 'Amount', field: 'amount', type: 'numeric' },
+//       { title: 'Date of Expense', field: 'dateOfExpense', type: 'date' },
+//       { title: 'Category', field: 'category' },
+//       {
+//         title: 'Description',
+//         field: 'description',
+//       //   lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+//       },
+//     ],
+//     data: [
+//       { name: 'Mehmet', amount: 100, dateOfExpense: "12/11/2020", category: 'Food',  description: "adasdasdasdasd"},
+//       { name: 'hmet', amount: 100, dateOfExpense: "2020-10-10", category: 'Food',  description: "adasdasdasdasd"},
+//     ],
+//   })
+// }

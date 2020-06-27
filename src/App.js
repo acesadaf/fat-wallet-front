@@ -9,9 +9,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Signin />
-        {/* <NavBar/>
-        <Main /> */}
+        {/* <Signin /> */}
+        <NavBar/>
+        <Main />
         {/* <ExpenseList/> */}
       </div>
     );

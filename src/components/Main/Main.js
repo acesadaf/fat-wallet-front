@@ -40,15 +40,6 @@ class Main extends Component {
           func1={this.expenseCallBack}
           func2={this.categoryCallBack}
         />
-        {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
-
-        {/* </div> */}
-        {/* <div
-          className="px-5"
-          style={{ display: "flex", justifyContent: "flex-end" }}
-        > */}
-        {/* <AddExpense /> */}
-        {/* </div> */}
       </div>
     );
   }
