@@ -15,13 +15,21 @@ class Main extends Component {
     this.setState({
       expenseOrCategory: false,
     });
+    localStorage.setItem("eoc", "false");
   };
 
   categoryCallBack = (dataFromCategory) => {
     this.setState({
       expenseOrCategory: true,
     });
+    localStorage.setItem("eoc", "true");
   };
+
+  componentWillMount() {
+    if (localStorage.getItem("eoc") === "false") {
+      this.setState({ expenseOrCategory: false });
+    }
+  }
 
   render() {
     return (

@@ -16,7 +16,16 @@ class Graph extends React.Component {
     this.setState({
       choice: eventKey,
     });
-    console.log(eventKey);
+    localStorage.setItem("choice", eventKey);
+  }
+
+  componentWillMount() {
+    var lastChoice = localStorage.getItem("choice");
+    if (lastChoice != null) {
+      this.setState({
+        choice: lastChoice,
+      });
+    }
   }
 
   render() {
