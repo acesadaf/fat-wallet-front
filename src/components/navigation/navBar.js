@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../Image/Wallet.png";
+import { Link } from "react-router-dom";
 
 const navBar = () => {
   return (
@@ -23,22 +24,27 @@ const navBar = () => {
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
-              History <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Link
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              Disabled
-            </a>
-          </li>
+          <Link to="/home">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                Home
+              </a>
+            </li>
+          </Link>
+          <Link to="/expenses">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                Expenses
+              </a>
+            </li>
+          </Link>
+          <Link to="/">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                Sign Out
+              </a>
+            </li>
+          </Link>
         </ul>
       </div>
     </nav>

@@ -20,6 +20,7 @@
     "react-dom": "^16.13.1",
     "react-easy-bar-chart": "0.0.2",
     "react-google-charts": "^3.0.15",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-strap": "0.0.1",
     "react-svg-bar-chart": "^1.0.0",
