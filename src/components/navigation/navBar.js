@@ -6,10 +6,11 @@ const navBar = () => {
   return (
     <nav class="navbar navbar-expand-lg navbar-light">
       <img class="px-2" src={Logo} width="50" alt="cant find"></img>
-
-      <a class="navbar-brand" href="#">
-        Fat Wallet
-      </a>
+      <Link to="/home">
+        <a class="navbar-brand" href="#">
+          Fat Wallet
+        </a>
+      </Link>
       <button
         class="navbar-toggler"
         type="button"
