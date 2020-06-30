@@ -39,10 +39,9 @@ class Main extends Component {
           flexdirection: "row",
           justifyContent: "center",
           flexWrap: "wrap",
-          flexShrink: 2,
         }}
       >
-        <Graph />
+        <Graph/>
         <Switcher
           eoc={this.state.expenseOrCategory}
           func1={this.expenseCallBack}

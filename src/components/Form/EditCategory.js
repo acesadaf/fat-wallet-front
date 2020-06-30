@@ -35,9 +35,9 @@ class EditCategory extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{width: "80vw", maxWidth: "900px"}}>
           <button
-          style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
+          style={{ background: "#fcda4f", color: "black", border: "#fcda4f"}}
           type="button"
           className="btn btn-primary btn-block"
           onClick={this.handleClick}

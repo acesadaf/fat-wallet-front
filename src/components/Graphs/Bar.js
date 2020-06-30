@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer
 } from "recharts";
 
 const data = [
@@ -57,14 +58,8 @@ const data = [
 
 const Bars = () => {
   return (
+    <ResponsiveContainer width="99%" height={750}>
     <BarChart
-      style={
-        {
-          //border: "1px solid black",
-        }
-      }
-      width={1000}
-      height={800}
       data={data}
       margin={{
         top: 5,
@@ -81,6 +76,7 @@ const Bars = () => {
       <Bar dataKey="pv" fill="#8884d8" />
       <Bar dataKey="uv" fill="#82ca9d" />
     </BarChart>
+    </ResponsiveContainer>
   );
 };
 

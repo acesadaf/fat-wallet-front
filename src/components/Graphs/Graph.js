@@ -30,14 +30,11 @@ class Graph extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style = {{width: "100vh"}}>
         <Dropdown
           name="category"
           value={this.choice}
           onSelect={this.handleSelect}
-          style={{
-            flex: 10,
-          }}
         >
           <Dropdown.Toggle
             style={{

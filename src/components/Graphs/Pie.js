@@ -11,17 +11,18 @@ const data = [
 export default class Example extends PureComponent {
   render() {
     return (
-      <div style={{ width: 600, height: 1000 }}>
-        <ResponsiveContainer width="99%">
+      <div >
+        <ResponsiveContainer width="99%" height={750}>
           <PieChart>
             <Pie
               dataKey="value"
               data={data}
               fill="#8884d8"
               label
-              cx={200}
-              cy={200}
-              outerRadius="150"
+              cx="50%"
+              cy="50%"
+              outerRadius="80%"
+              innerRadius="50%"
             />
           </PieChart>
         </ResponsiveContainer>

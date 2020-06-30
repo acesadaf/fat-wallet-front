@@ -57,7 +57,8 @@ class AddExpense extends React.Component {
       <div>
         <form
           style={{
-            width: "80vh",
+            width: "80vw",
+            maxWidth: "700px"
             //border: "1px solid black",
           }}
           onSubmit={this.handleSubmit}
