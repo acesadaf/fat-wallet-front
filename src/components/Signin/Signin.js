@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Signin.css";
 import Logo from "../Image/Wallet.png";
-
+ 
 class Signin extends Component {
   constructor(props) {
     super(props);
@@ -14,52 +14,48 @@ class Signin extends Component {
       cpassword: "",
       loginOrRegister: true,
     };
-
+ 
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
-
+ 
   handleLogin(event) {
-    console.log(this.state.userName)
+    console.log(this.state.userName);
     // fetch('http://friendly-eds-52406.herokuapp.com/sign_in',{
-    fetch('http://127.0.0.1:8000/sign_in',{
-        method:'get',
-        headers: {'Content-type': 'application/json'},
-        body: JSON.stringify({
-            username: this.state.userName,
-            password: this.state.password
-        })
+    fetch("http://127.0.0.1:8000/sign_in", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.userName,
+        password: this.state.password,
+      }),
     })
-    .then(response => {
-      response.json()
-      console.log(response)
-    })
+      .then((response) => response.text())
+      .then((responseText) => console.log(responseText));
   }
-
+ 
   handleRegister(event) {
-    console.log(this.state.userName)
+    console.log(this.state.userName);
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
-    fetch('http://127.0.0.1:8000/add_user',{
-        method:'post',
-        headers: {'Content-type': 'application/json'},
-        body: JSON.stringify({
-            username: this.state.userName,
-            email: this.state.email,
-            password: this.state.password,
-            first_name: this.state.firstName,
-            last_name: this.state.lastName
-        })
+    fetch("http://127.0.0.1:8000/add_user", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.userName,
+        email: this.state.email,
+        password: this.state.password,
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+      }),
     })
-    .then(response => {
-      response.json()
-      console.log(response)
-    })
-
-    // const { firstName, lastName, userName, password, cpassword } = this.state;
-    // alert(lastName + userName);
+      .then((response) => response.text())
+      .then((responseText) => console.log(responseText));
   }
-
+ 
+  // const { firstName, lastName, userName, password, cpassword } = this.state;
+  // alert(lastName + userName);
+ 
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -71,7 +67,7 @@ class Signin extends Component {
       () => console.log(this.state)
     );
   }
-
+ 
   render() {
     return (
       <div>
@@ -82,7 +78,7 @@ class Signin extends Component {
         />
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> */}
-
+ 
         <div class="sidenav">
           <div
             class="login-main-text"
@@ -105,7 +101,7 @@ class Signin extends Component {
             </div>
           </div>
         </div>
-
+ 
         <div class="main">
           <div class="col-md-7 col-sm-7">
             <div>
@@ -205,5 +201,5 @@ class Signin extends Component {
     );
   }
 }
-
+ 
 export default Signin;
