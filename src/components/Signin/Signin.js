@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./Signin.css";
 import Logo from "../Image/Wallet.png";
- 
+import { Redirect } from "react-router-dom";
+
 class Signin extends Component {
   constructor(props) {
     super(props);
@@ -13,13 +14,15 @@ class Signin extends Component {
       password: "",
       cpassword: "",
       loginOrRegister: true,
+      displayText: "",
+      redirect: null,
     };
- 
+
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
- 
+
   handleLogin(event) {
     console.log(this.state.userName);
     // fetch('http://friendly-eds-52406.herokuapp.com/sign_in',{
@@ -32,11 +35,26 @@ class Signin extends Component {
       }),
     })
       .then((response) => response.text())
-      .then((responseText) => console.log(responseText));
+      .then((responseText) => {
+        console.log(responseText);
+        if (responseText === "Signed in!") {
+          console.log("here");
+          this.setState({ redirect: "/home" });
+        } else {
+          this.setState({ displayText: responseText });
+        }
+      });
   }
- 
+
   handleRegister(event) {
     console.log(this.state.userName);
+    const p = this.state.password;
+    const cp = this.state.cpassword;
+
+    if (p != cp) {
+      this.setState({ displayText: "Passwords don't match. Sorry!" });
+      return;
+    }
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
     fetch("http://127.0.0.1:8000/add_user", {
       method: "post",
@@ -50,12 +68,20 @@ class Signin extends Component {
       }),
     })
       .then((response) => response.text())
-      .then((responseText) => console.log(responseText));
+      .then((responseText) => {
+        console.log(responseText);
+        if (responseText === "Added") {
+          console.log("here");
+          this.setState({ redirect: "/home" });
+        } else {
+          this.setState({ displayText: responseText });
+        }
+      });
   }
- 
+
   // const { firstName, lastName, userName, password, cpassword } = this.state;
   // alert(lastName + userName);
- 
+
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -67,8 +93,12 @@ class Signin extends Component {
       () => console.log(this.state)
     );
   }
- 
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
     return (
       <div>
         {/* <link
@@ -78,7 +108,7 @@ class Signin extends Component {
         />
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> */}
- 
+
         <div class="sidenav">
           <div
             class="login-main-text"
@@ -101,11 +131,17 @@ class Signin extends Component {
             </div>
           </div>
         </div>
- 
+
         <div class="main">
           <div class="col-md-7 col-sm-7">
             <div>
               <form class="form-padding">
+                <label
+                  className="lh-copy white f5"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {this.state.displayText}
+                </label>
                 <div class="form-group">
                   <label>User Name</label>
                   <input
@@ -201,5 +237,5 @@ class Signin extends Component {
     );
   }
 }
- 
+
 export default Signin;
