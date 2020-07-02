@@ -6,6 +6,7 @@ class Signin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: "",
       firstName: "",
       lastName: "",
       userName: "",
@@ -20,13 +21,43 @@ class Signin extends Component {
   }
 
   handleLogin(event) {
-    const { firstName, lastName, userName, password, cpassword } = this.state;
-    alert(firstName + password);
+    console.log(this.state.userName)
+    // fetch('http://friendly-eds-52406.herokuapp.com/sign_in',{
+    fetch('http://127.0.0.1:8000/sign_in',{
+        method:'get',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify({
+            username: this.state.userName,
+            password: this.state.password
+        })
+    })
+    .then(response => {
+      response.json()
+      console.log(response)
+    })
   }
 
   handleRegister(event) {
-    const { firstName, lastName, userName, password, cpassword } = this.state;
-    alert(lastName + userName);
+    console.log(this.state.userName)
+    // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
+    fetch('http://127.0.0.1:8000/add_user',{
+        method:'post',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify({
+            username: this.state.userName,
+            email: this.state.email,
+            password: this.state.password,
+            first_name: this.state.firstName,
+            last_name: this.state.lastName
+        })
+    })
+    .then(response => {
+      response.json()
+      console.log(response)
+    })
+
+    // const { firstName, lastName, userName, password, cpassword } = this.state;
+    // alert(lastName + userName);
   }
 
   handleChange(event) {
@@ -114,6 +145,17 @@ class Signin extends Component {
                     Do not have an account yet? Please fill in these additional
                     details.
                   </p>
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    name="email"
+                    value={this.state.name}
+                    class="form-control form-rounded"
+                    placeholder="Email"
+                    onChange={this.handleChange}
+                  />
                 </div>
                 <div class="form-group">
                   <label>First Name</label>
