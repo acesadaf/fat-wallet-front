@@ -9,18 +9,11 @@ class EditCategory extends React.Component {
     this.printData = this.printData.bind(this);
     this.state = {
         columns: [
-            { title: 'Name', field: 'name' },
-            { title: 'Amount', field: 'amount', type: 'numeric' },
-            { title: 'Date of Expense', field: 'dateOfExpense', type: 'date' },
             { title: 'Category', field: 'category' },
-            {
-              title: 'Description',
-              field: 'description',
-            },
           ],
           data: [
-            { name: 'Mehmet', amount: 100, dateOfExpense: "12/11/2020", category: 'Food',  description: "adasdasdasdasd"},
-            { name: 'hmet', amount: 100, dateOfExpense: "2020-10-10", category: 'Food',  description: "adasdasdasdasd"},
+            { category: "first"},
+            {  category: "second"},
           ],
     };
   }
@@ -82,7 +75,7 @@ class EditCategory extends React.Component {
                     }, 600);
                     }),
 
-                    onRowAdd: (newData) =>
+                    onRowAdd: (newData) => 
                     new Promise((resolve) => {
                       setTimeout(() => {
                         resolve();
@@ -91,18 +84,22 @@ class EditCategory extends React.Component {
                           data.push(newData);
                           return { ...prevState, data };
                         });
+                      fetch("http://127.0.0.1:8000/category_submit", {
+                        method: "post",
+                        headers: { "Content-type": "application/json" },
+                        body: JSON.stringify({
+                          category: newData.category,
+                        }),
+                      })
+                      .then((response) => response.text())
+                      .then((responseText) => {
+                        console.log(responseText);
+                     });
                       }, 600);
-                    }),
+                    }
+                    ),
 
-                  // onRowAdd: newData =>
-                  // new Promise((resolve, reject) => {
-                  //   setTimeout(() => {
-                  //     this.setState(
-                  //       { data: [...this.state.data, newData]});
-    
-                  //       resolve();
-                  //   }, 1000);
-                  //   }),
+
                 }}
             />
             
@@ -140,3 +137,15 @@ export default EditCategory;
 //     ],
 //   })
 // }
+
+
+
+// onRowAdd: newData =>
+// new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     this.setState(
+//       { data: [...this.state.data, newData]});
+
+//       resolve();
+//   }, 1000);
+//   }),
