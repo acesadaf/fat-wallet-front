@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Signin.css";
 import Logo from "../Image/Wallet.png";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class Signin extends Component {
   constructor(props) {
@@ -96,9 +96,14 @@ class Signin extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={
-        {pathname: this.state.redirect,
-        state: { name: this.state.userName }}} />;
+      return (
+        <Redirect
+          to={{
+            pathname: this.state.redirect,
+            state: { name: this.state.userName },
+          }}
+        />
+      );
     }
 
     return (

@@ -8,7 +8,10 @@ class Main extends Component {
     super(props);
     this.state = {
       expenseOrCategory: true,
+      currentUser: props.location.state.name,
     };
+    console.log(props.location.state);
+    console.log("Current user is: " + this.state.currentUser);
   }
 
   expenseCallBack = (dataFromExpense) => {
@@ -41,7 +44,7 @@ class Main extends Component {
           flexWrap: "wrap",
         }}
       >
-        <Graph/>
+        <Graph />
         <Switcher
           eoc={this.state.expenseOrCategory}
           func1={this.expenseCallBack}

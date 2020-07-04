@@ -14,20 +14,20 @@ class App extends React.Component {
             <Route path="/" exact component={Signin} />
             <Route
               path="/home"
-              render={() => (
+              render={(props) => (
                 <div>
                   <NavBar />
-                  <Main />
+                  <Main {...props} />
                 </div>
               )}
             />
 
             <Route
               path="/expenses"
-              render={() => (
+              render={(props) => (
                 <div>
                   <NavBar />
-                  <ExpenseList />
+                  <ExpenseList {...props} />
                 </div>
               )}
             />
