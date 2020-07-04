@@ -11,6 +11,7 @@ class AddExpense extends React.Component {
       category: "",
       date: new Date(),
       description: "",
+      user: "saquibirtiza"
     };
     this.selectedCat = "Choose an Option";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
@@ -25,9 +26,25 @@ class AddExpense extends React.Component {
     this.props.callbackFromParent(true);
   }
 
-  handleSubmit() {
-    const { name, amount, category, date, description } = this.state;
-    alert("Inputs" + name + amount + category + date + description);
+  handleSubmit(event) {
+    event.preventDefault();
+    // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
+      fetch("http://127.0.0.1:8000/expense_submit", {
+        method: "post",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          name: this.state.name,
+          amount: this.state.amount,
+          date_of_expense: this.state.date,
+          category: this.state.category,
+          description: this.state.description,
+          user: this.state.user,
+        }),
+      })
+        .then((response) => response.text())
+        .then((responseText) => {
+          console.log(responseText);
+        });
   }
 
   handleChange(event) {
@@ -83,6 +100,7 @@ class AddExpense extends React.Component {
             <label>Amount</label>
             <input
               type="number"
+              step="0.01"
               name="amount"
               className="form-control form-rounded"
               placeholder="Enter amount"

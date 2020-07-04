@@ -96,7 +96,9 @@ class Signin extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      return <Redirect to={
+        {pathname: this.state.redirect,
+        state: { name: this.state.userName }}} />;
     }
 
     return (
