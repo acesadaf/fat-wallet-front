@@ -30,7 +30,7 @@ class Graph extends React.Component {
 
   render() {
     return (
-      <div style = {{width: "100vh"}}>
+      <div style={{ width: "100vh" }}>
         <Dropdown
           name="category"
           value={this.choice}
@@ -60,17 +60,20 @@ class Graph extends React.Component {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <ShowGraph choice={this.state.choice}></ShowGraph>
+        <ShowGraph
+          choice={this.state.choice}
+          user={this.props.username}
+        ></ShowGraph>
       </div>
     );
   }
 }
 
-function ShowGraph({ choice }) {
+function ShowGraph({ choice, user }) {
   if (choice === "Expenses by Month") {
-    return <Bar />;
+    return <Bar username={user} />;
   } else {
-    return <Pie />;
+    return <Pie username={user} />;
   }
 }
 

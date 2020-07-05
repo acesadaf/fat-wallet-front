@@ -1,6 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import "./AddExpense.css";
+import { InputGroupAppend } from "react-bootstrap/InputGroup";
 
 class AddExpense extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class AddExpense extends React.Component {
       category: "",
       date: new Date(),
       description: "",
-      user: "saquibirtiza"
+      user: props.username,
+      allcategories: [],
     };
     this.selectedCat = "Choose an Option";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
@@ -22,6 +24,26 @@ class AddExpense extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
+  componentWillMount() {
+    fetch("http://127.0.0.1:8000/category_data", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.user,
+      }),
+    })
+      .then((response) => response.json())
+      .then((resData) => {
+        let tableContents = [];
+        var i;
+        for (i = 0; i < resData.length; i++) {
+          tableContents.push(resData[i].category);
+        }
+        this.setState({ allcategories: tableContents });
+        console.log(this.state.allcategories);
+      });
+  }
+
   handleClick(event) {
     this.props.callbackFromParent(true);
   }
@@ -29,22 +51,22 @@ class AddExpense extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
-      fetch("http://127.0.0.1:8000/expense_submit", {
-        method: "post",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          name: this.state.name,
-          amount: this.state.amount,
-          date_of_expense: this.state.date,
-          category: this.state.category,
-          description: this.state.description,
-          user: this.state.user,
-        }),
-      })
-        .then((response) => response.text())
-        .then((responseText) => {
-          console.log(responseText);
-        });
+    fetch("http://127.0.0.1:8000/expense_submit", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        name: this.state.name,
+        amount: this.state.amount,
+        date_of_expense: this.state.date,
+        category: this.state.category,
+        description: this.state.description,
+        user: this.state.user,
+      }),
+    })
+      .then((response) => response.text())
+      .then((responseText) => {
+        console.log(responseText);
+      });
   }
 
   handleChange(event) {
@@ -75,7 +97,7 @@ class AddExpense extends React.Component {
         <form
           style={{
             width: "80vw",
-            maxWidth: "700px"
+            maxWidth: "700px",
             //border: "1px solid black",
           }}
           onSubmit={this.handleSubmit}
@@ -158,7 +180,7 @@ class AddExpense extends React.Component {
                     {this.selectedCat}
                   </Dropdown.Toggle>
                   <Dropdown.Menu style={{ width: "100%" }}>
-                    {this.categories.map((cat) => (
+                    {this.state.allcategories.map((cat) => (
                       <Dropdown.Item eventKey={cat}>{cat}</Dropdown.Item>
                     ))}
                   </Dropdown.Menu>

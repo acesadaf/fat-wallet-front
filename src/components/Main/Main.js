@@ -44,7 +44,7 @@ class Main extends Component {
           flexWrap: "wrap",
         }}
       >
-        <Graph />
+        <Graph username={this.state.currentUser} />
         <Switcher
           eoc={this.state.expenseOrCategory}
           func1={this.expenseCallBack}
@@ -61,7 +61,7 @@ function Switcher({ eoc, func1, func2, user }) {
   console.log(user);
   if (eoc === true) {
     console.log("cda");
-    return <AddExpense callbackFromParent={func1} />;
+    return <AddExpense username={user} callbackFromParent={func1} />;
   } else {
     return <EditCategory username={user} callbackFromParent={func2} />;
   }
