@@ -16,7 +16,7 @@ class App extends React.Component {
               path="/home"
               render={(props) => (
                 <div>
-                  <NavBar />
+                  <NavBar {...props} />
                   <Main {...props} />
                 </div>
               )}
@@ -26,7 +26,7 @@ class App extends React.Component {
               path="/expenses"
               render={(props) => (
                 <div>
-                  <NavBar />
+                  <NavBar {...props} />
                   <ExpenseList {...props} />
                 </div>
               )}

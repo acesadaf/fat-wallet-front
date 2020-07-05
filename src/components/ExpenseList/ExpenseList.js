@@ -1,7 +1,8 @@
 import React from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MaterialTable from "material-table";
-
+import { Spinner } from "react-bootstrap";
+import "./ExpenseList.css";
 class ExpenseList extends React.Component {
   constructor(props) {
     super(props);
@@ -13,22 +14,8 @@ class ExpenseList extends React.Component {
         { title: "Category", field: "category" },
         { title: "Description", field: "description" },
       ],
-      data: [
-        {
-          name: "Mehmet",
-          amount: 100,
-          dateOfExpense: "12/11/2020",
-          category: "Food",
-          description: "adasdasdasdasd",
-        },
-        {
-          name: "hmet",
-          amount: 100,
-          dateOfExpense: "2020-10-10",
-          category: "Food",
-          description: "adasdasdasdasd",
-        },
-      ],
+      data: [],
+      currentUser: props.location.state.name,
     };
     console.log(props.location.state);
   }
@@ -38,7 +25,7 @@ class ExpenseList extends React.Component {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        username: "sadafhalim",
+        username: this.state.currentUser,
       }),
     })
       .then((response) => response.json())
@@ -59,54 +46,62 @@ class ExpenseList extends React.Component {
   }
 
   render() {
-    return (
-      <div
-        style={{
-          padding: "5%",
-        }}
-      >
-        <MuiThemeProvider>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          ></link>
-          <MaterialTable
-            style={{
-              background: "#fcda4f",
-            }}
-            title="Expense History"
-            columns={this.state.columns}
-            data={this.state.data}
-            editable={{
-              onRowUpdate: (newData, oldData) =>
-                new Promise((resolve) => {
-                  setTimeout(() => {
-                    resolve();
-                    if (oldData) {
+    if (this.state.data.length > 0) {
+      return (
+        <div
+          style={{
+            padding: "5%",
+          }}
+        >
+          <MuiThemeProvider>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            ></link>
+            <MaterialTable
+              style={{
+                background: "#fcda4f",
+              }}
+              title="Expense History"
+              columns={this.state.columns}
+              data={this.state.data}
+              editable={{
+                onRowUpdate: (newData, oldData) =>
+                  new Promise((resolve) => {
+                    setTimeout(() => {
+                      resolve();
+                      if (oldData) {
+                        this.setState((prevState) => {
+                          const data = [...prevState.data];
+                          data[data.indexOf(oldData)] = newData;
+                          return { ...prevState, data };
+                        });
+                      }
+                    }, 600);
+                  }),
+                onRowDelete: (oldData) =>
+                  new Promise((resolve) => {
+                    setTimeout(() => {
+                      resolve();
                       this.setState((prevState) => {
                         const data = [...prevState.data];
-                        data[data.indexOf(oldData)] = newData;
+                        data.splice(data.indexOf(oldData), 1);
                         return { ...prevState, data };
                       });
-                    }
-                  }, 600);
-                }),
-              onRowDelete: (oldData) =>
-                new Promise((resolve) => {
-                  setTimeout(() => {
-                    resolve();
-                    this.setState((prevState) => {
-                      const data = [...prevState.data];
-                      data.splice(data.indexOf(oldData), 1);
-                      return { ...prevState, data };
-                    });
-                  }, 600);
-                }),
-            }}
-          />
-        </MuiThemeProvider>
-      </div>
-    );
+                    }, 600);
+                  }),
+              }}
+            />
+          </MuiThemeProvider>
+        </div>
+      );
+    } else {
+      return (
+        <Spinner className="centered" animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      );
+    }
   }
 }
 

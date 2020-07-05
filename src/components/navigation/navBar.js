@@ -2,11 +2,18 @@ import React from "react";
 import Logo from "../Image/Wallet.png";
 import { Link } from "react-router-dom";
 
-const navBar = () => {
+const navBar = (props) => {
+  console.log("inside nav");
+  console.log(props.location.state.name);
   return (
     <nav class="navbar navbar-expand-lg navbar-light">
       <img class="px-2" src={Logo} width="50" alt="cant find"></img>
-      <Link to="/home">
+      <Link
+        to={{
+          pathname: "/home",
+          state: { name: props.location.state.name },
+        }}
+      >
         <a class="navbar-brand" href="#">
           Fat Wallet
         </a>
@@ -25,14 +32,24 @@ const navBar = () => {
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <Link to="/home">
+          <Link
+            to={{
+              pathname: "/home",
+              state: { name: props.location.state.name },
+            }}
+          >
             <li class="nav-item active">
               <a class="nav-link" href="#">
                 Home
               </a>
             </li>
           </Link>
-          <Link to="/expenses">
+          <Link
+            to={{
+              pathname: "/expenses",
+              state: { name: props.location.state.name },
+            }}
+          >
             <li class="nav-item active">
               <a class="nav-link" href="#">
                 Expenses

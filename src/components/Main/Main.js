@@ -49,19 +49,21 @@ class Main extends Component {
           eoc={this.state.expenseOrCategory}
           func1={this.expenseCallBack}
           func2={this.categoryCallBack}
+          user={this.state.currentUser}
         />
       </div>
     );
   }
 }
 
-function Switcher({ eoc, func1, func2 }) {
+function Switcher({ eoc, func1, func2, user }) {
   console.log("abc");
+  console.log(user);
   if (eoc === true) {
     console.log("cda");
     return <AddExpense callbackFromParent={func1} />;
   } else {
-    return <EditCategory callbackFromParent={func2} />;
+    return <EditCategory username={user} callbackFromParent={func2} />;
   }
 }
 
