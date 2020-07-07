@@ -11,7 +11,8 @@ class EditCategory extends React.Component {
     this.state = {
       columns: [{ title: "Category", field: "category" }],
       data: [],
-      currentUser: props.username
+      currentUser: props.username,
+      userMap: { Entertainment: "General" },
     };
   }
 
@@ -24,6 +25,7 @@ class EditCategory extends React.Component {
   }
 
   componentWillMount() {
+    console.log("mounting...");
     fetch("http://127.0.0.1:8000/category_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
@@ -34,13 +36,26 @@ class EditCategory extends React.Component {
       .then((response) => response.json())
       .then((resData) => {
         let tableContents = [];
+        let uMap = {};
         var i;
         for (i = 0; i < resData.length; i++) {
           tableContents[i] = {
             category: resData[i].category,
           };
+          uMap[resData[i].category] = resData[i].username;
         }
-        this.setState({ data: tableContents });
+
+        var n = tableContents.length;
+        var i;
+        for (i = 0; i < n; i++) {
+          if (uMap[tableContents[i]] != "General") {
+            var value = tableContents[i];
+            tableContents.splice(i, 1);
+            tableContents.splice(0, 0, value);
+          }
+        }
+
+        this.setState({ data: tableContents, userMap: uMap });
       });
   }
 
@@ -69,8 +84,11 @@ class EditCategory extends React.Component {
               columns={this.state.columns}
               data={this.state.data}
               editable={{
-                onRowUpdate: (newData, oldData) => {
-                  this.printData(newData);
+                isEditable: (rowData) =>
+                  this.state.userMap[rowData.category] != "General",
+                isDeletable: (rowData) =>
+                  this.state.userMap[rowData.category] != "General",
+                onRowUpdate: (newData, oldData) =>
                   new Promise((resolve) => {
                     setTimeout(() => {
                       resolve();
@@ -80,10 +98,23 @@ class EditCategory extends React.Component {
                           data[data.indexOf(oldData)] = newData;
                           return { ...prevState, data };
                         });
+                        fetch("http://127.0.0.1:8000/category_edit", {
+                          method: "post",
+                          headers: { "Content-type": "application/json" },
+                          body: JSON.stringify({
+                            name: this.state.currentUser,
+                            old: oldData.category,
+                            new: newData.category,
+                          }),
+                        })
+                          .then((response) => response.text())
+                          .then((responseText) => {
+                            console.log(responseText);
+                          });
                       }
                     }, 600);
-                  });
-                },
+                  }),
+
                 onRowDelete: (oldData) =>
                   new Promise((resolve) => {
                     setTimeout(() => {
@@ -91,7 +122,7 @@ class EditCategory extends React.Component {
                       this.setState((prevState) => {
                         const data = [...prevState.data];
                         data.splice(data.indexOf(oldData), 1);
-                        console.log(oldData.category)
+                        console.log(oldData.category);
                         return { ...prevState, data };
                       });
                       fetch("http://127.0.0.1:8000/category_delete", {
@@ -124,20 +155,19 @@ class EditCategory extends React.Component {
                       })
                         .then((response) => response.text())
                         .then((responseText) => {
-                          if (responseText == "Category Added"){
+                          if (responseText == "Category Added") {
                             this.setState((prevState) => {
                               const data = [...prevState.data];
                               data.push(newData);
                               return { ...prevState, data };
                             });
-                          }else{
+                          } else {
                             alert("Error");
                             this.setState((prevState) => {
                               const data = [...prevState.data];
                               return { ...prevState, data };
                             });
                           }
-
 
                           // this.setState({updated: !this.state.updated})
                         });
