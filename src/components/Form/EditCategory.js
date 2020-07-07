@@ -11,7 +11,7 @@ class EditCategory extends React.Component {
     this.state = {
       columns: [{ title: "Category", field: "category" }],
       data: [],
-      currentUser: props.username,
+      currentUser: props.username
     };
   }
 
@@ -105,7 +105,7 @@ class EditCategory extends React.Component {
                         data.push(newData);
                         return { ...prevState, data };
                       });
-                      fetch("http://127.0.0.1:8000/category_data", {
+                      fetch("http://127.0.0.1:8000/category_submit", {
                         method: "post",
                         headers: { "Content-type": "application/json" },
                         body: JSON.stringify({
@@ -115,6 +115,7 @@ class EditCategory extends React.Component {
                         .then((response) => response.text())
                         .then((responseText) => {
                           console.log(responseText);
+                          // this.setState({updated: !this.state.updated})
                         });
                     }, 600);
                   }),
