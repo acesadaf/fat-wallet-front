@@ -91,8 +91,22 @@ class EditCategory extends React.Component {
                       this.setState((prevState) => {
                         const data = [...prevState.data];
                         data.splice(data.indexOf(oldData), 1);
+                        console.log(oldData.category)
                         return { ...prevState, data };
                       });
+                      fetch("http://127.0.0.1:8000/category_delete", {
+                        method: "post",
+                        headers: { "Content-type": "application/json" },
+                        body: JSON.stringify({
+                          name: this.state.currentUser,
+                          category: oldData.category,
+                        }),
+                      })
+                        .then((response) => response.text())
+                        .then((responseText) => {
+                          console.log(responseText);
+                          // this.setState({updated: !this.state.updated})
+                        });
                     }, 600);
                   }),
 
@@ -100,21 +114,31 @@ class EditCategory extends React.Component {
                   new Promise((resolve) => {
                     setTimeout(() => {
                       resolve();
-                      this.setState((prevState) => {
-                        const data = [...prevState.data];
-                        data.push(newData);
-                        return { ...prevState, data };
-                      });
                       fetch("http://127.0.0.1:8000/category_submit", {
                         method: "post",
                         headers: { "Content-type": "application/json" },
                         body: JSON.stringify({
+                          name: this.state.currentUser,
                           category: newData.category,
                         }),
                       })
                         .then((response) => response.text())
                         .then((responseText) => {
-                          console.log(responseText);
+                          if (responseText == "Category Added"){
+                            this.setState((prevState) => {
+                              const data = [...prevState.data];
+                              data.push(newData);
+                              return { ...prevState, data };
+                            });
+                          }else{
+                            alert("Error");
+                            this.setState((prevState) => {
+                              const data = [...prevState.data];
+                              return { ...prevState, data };
+                            });
+                          }
+
+
                           // this.setState({updated: !this.state.updated})
                         });
                     }, 600);
