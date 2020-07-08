@@ -39,6 +39,7 @@ class ExpenseList extends React.Component {
             dateOfExpense: resData[i].date,
             category: resData[i].category_name,
             description: resData[i].description,
+            id: resData[i].id,
           };
         }
         this.setState({ data: tableContents });
@@ -71,11 +72,44 @@ class ExpenseList extends React.Component {
                     setTimeout(() => {
                       resolve();
                       if (oldData) {
-                        this.setState((prevState) => {
-                          const data = [...prevState.data];
-                          data[data.indexOf(oldData)] = newData;
-                          return { ...prevState, data };
-                        });
+                        var flag = false;
+                        if (
+                          newData.name === "" ||
+                          newData.category === "" ||
+                          newData.description === "" ||
+                          newData.amount === ""
+                        ) {
+                          flag = true;
+                        }
+                        if (flag) {
+                          alert("Empty field!");
+                          this.setState((prevState) => {
+                            const data = [...prevState.data];
+                            return { ...prevState, data };
+                          });
+                        } else {
+                          this.setState((prevState) => {
+                            const data = [...prevState.data];
+                            data[data.indexOf(oldData)] = newData;
+                            return { ...prevState, data };
+                          });
+                          fetch("http://127.0.0.1:8000/expense_edit", {
+                            method: "post",
+                            headers: { "Content-type": "application/json" },
+                            body: JSON.stringify({
+                              username: this.state.currentUser,
+                              id: oldData.id,
+                              date: newData.dateOfExpense,
+                              amount: newData.amount,
+                              category: newData.category,
+                              description: newData.description,
+                            }),
+                          })
+                            .then((response) => response.text())
+                            .then((responseText) => {
+                              console.log(responseText);
+                            });
+                        }
                       }
                     }, 600);
                   }),
@@ -88,6 +122,17 @@ class ExpenseList extends React.Component {
                         data.splice(data.indexOf(oldData), 1);
                         return { ...prevState, data };
                       });
+                      fetch("http://127.0.0.1:8000/expense_delete", {
+                        method: "post",
+                        headers: { "Content-type": "application/json" },
+                        body: JSON.stringify({
+                          id: oldData.id,
+                        }),
+                      })
+                        .then((response) => response.text())
+                        .then((responseText) => {
+                          console.log(responseText);
+                        });
                     }, 600);
                   }),
               }}
