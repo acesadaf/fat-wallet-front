@@ -19,8 +19,23 @@ class Signin extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.conditionalCSS = this.conditionalCSS.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
+  }
+  
+  conditionalCSS(){
+    var index = 0;
+    Object.keys(this.state).map(i => {
+      if (index <= 6){
+        if (this.state[i] === ""){
+          document.getElementById(i).style.color = "red";
+        }
+      }
+      index = index + 1;
+    })
+
+    // }
   }
 
   handleLogin(event) {
@@ -51,10 +66,33 @@ class Signin extends Component {
     const p = this.state.password;
     const cp = this.state.cpassword;
 
-    if (p != cp) {
-      this.setState({ displayText: "Passwords don't match. Sorry!" });
+
+
+    if (this.state.email === ""  || this.state.firstName === "" || this.state.lastName === "" || this.state.userName === "" || this.state.password === "" || this.state.cpassword === ""){
+      this.setState({ displayText: "Empty Field" }, () => {
+        this.conditionalCSS()
+      })
+      
+      
       return;
     }
+
+    if (p != cp) {
+      this.setState({ displayText: "Passwords don't match. Sorry!" });
+      document.getElementById('password').style.color = "red";
+      document.getElementById('cpassword').style.color = "red";
+      return;
+    }
+
+    if (!this.state.email.includes("@") | !this.state.email.includes(".com")){
+      this.setState({ displayText: "Invalid Email Address!" });
+      document.getElementById('email').style.color = "red";
+      return;
+    }
+
+
+
+
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
     fetch("http://127.0.0.1:8000/add_user", {
       method: "post",
@@ -77,6 +115,7 @@ class Signin extends Component {
           this.setState({ displayText: responseText });
         }
       });
+
   }
 
   // const { firstName, lastName, userName, password, cpassword } = this.state;
@@ -90,7 +129,7 @@ class Signin extends Component {
       {
         [name]: value,
       },
-      () => console.log(this.state)
+      () => document.getElementById(name).style.color= "black"
     );
   }
 
@@ -150,7 +189,7 @@ class Signin extends Component {
                   {this.state.displayText}
                 </label>
                 <div class="form-group">
-                  <label>User Name</label>
+                  <label id="userName">User Name</label>
                   <input
                     type="text"
                     name="userName"
@@ -161,7 +200,7 @@ class Signin extends Component {
                   />
                 </div>
                 <div class="form-group">
-                  <label>Password</label>
+                  <label id="password">Password</label>
                   <input
                     type="password"
                     name="password"
@@ -186,7 +225,7 @@ class Signin extends Component {
                   </p>
                 </div>
                 <div class="form-group">
-                  <label>Email</label>
+                  <label id ="email">Email</label>
                   <input
                     type="text"
                     name="email"
@@ -197,7 +236,7 @@ class Signin extends Component {
                   />
                 </div>
                 <div class="form-group">
-                  <label>First Name</label>
+                  <label id="firstName">First Name</label>
                   <input
                     type="text"
                     name="firstName"
@@ -208,7 +247,7 @@ class Signin extends Component {
                   />
                 </div>
                 <div class="form-group">
-                  <label>Last Name</label>
+                  <label id="lastName">Last Name</label>
                   <input
                     type="text"
                     name="lastName"
@@ -219,7 +258,7 @@ class Signin extends Component {
                   />
                 </div>
                 <div class="form-group">
-                  <label>Confirm Password</label>
+                  <label id="cpassword">Confirm Password</label>
                   <input
                     type="password"
                     name="cpassword"
