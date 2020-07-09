@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../Image/Wallet.png";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/js/bootstrap.bundle";
 
 const navBar = (props) => {
   console.log("inside nav");

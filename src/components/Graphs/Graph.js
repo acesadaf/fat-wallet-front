@@ -90,11 +90,11 @@ function PrintLabel(user){
     for(i=0; i<3; i++){
       strr = arr[i][0].concat(user.user)
       if (hour > arr[i][1] & hour <= arr[i][2]){
-          return <h3 style={{padding: "5vh"}}>{strr}</h3>
+          return <h3 style={{padding: "3vh"}}>{strr}</h3>
       }
     }
     strr = arr[3][0].concat(user.user)
-    return <h3 style={{padding: "5vh"}}>{strr}</h3>
+    return <h3 style={{padding: "3vh"}}>{strr}</h3>
 
     // if (hour < 12){
     //   var strr = arr[0].concat(user)

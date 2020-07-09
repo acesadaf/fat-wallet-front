@@ -9,7 +9,11 @@ class App extends React.Component {
   render() {
     return (
       <Router>
+        <div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
         <div>
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'></link>
           <Switch>
             <Route path="/" exact component={Signin} />
             <Route

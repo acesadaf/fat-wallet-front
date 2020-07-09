@@ -56,7 +56,8 @@ export default class Example extends PureComponent {
 render() {
   return (
     <div>
-    <ResponsiveContainer width="99%" height={750}>
+    <ResponsiveContainer width="99%" height= {750} style={{height: "80vw",
+            maxHeight: "700px",}}>
     <BarChart
       data={this.state.data}
       margin={{
