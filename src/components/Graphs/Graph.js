@@ -8,6 +8,7 @@ class Graph extends React.Component {
     super(props);
     this.state = {
       choice: "Expenses by Month",
+      time_of_day: "",
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -31,6 +32,9 @@ class Graph extends React.Component {
   render() {
     return (
       <div style={{ width: "100vh" }}>
+        <PrintLabel
+          user = {this.props.username}
+        />
         <Dropdown
           name="category"
           value={this.choice}
@@ -75,6 +79,33 @@ function ShowGraph({ choice, user }) {
   } else {
     return <Pie username={user} />;
   }
+}
+
+function PrintLabel(user){
+    var arr = [["Good Morning, ", 6, 12], ["Good Evening, ", 12, 18], ["Good afternoon, ", 18, 21], ["Good Night, ", 21, 24]];
+    var hour = new Date().getHours();
+    console.log(user)
+    var i;
+    var strr = "";
+    for(i=0; i<3; i++){
+      strr = arr[i][0].concat(user.user)
+      if (hour > arr[i][1] & hour <= arr[i][2]){
+          return <h3 style={{padding: "5vh"}}>{strr}</h3>
+      }
+    }
+    strr = arr[3][0].concat(user.user)
+    return <h3 style={{padding: "5vh"}}>{strr}</h3>
+
+    // if (hour < 12){
+    //   var strr = arr[0].concat(user)
+    //   return <label>{strr}</label>
+    // }
+    // if (hour >= 12 & hour < 6){
+    //   var strr = arr[1].concat(user)
+    //   return <label>{strr}</label>
+    // }
+    // return <label>reeee</label>
+    
 }
 
 export default Graph;

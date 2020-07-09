@@ -2,6 +2,7 @@ import React from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MaterialTable from "material-table";
 import { Spinner } from "react-bootstrap";
+import Stats from "./Stats";
 
 class EditCategory extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class EditCategory extends React.Component {
 
   componentWillMount() {
     console.log("mounting...");
+
     fetch("http://127.0.0.1:8000/category_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
@@ -57,12 +59,14 @@ class EditCategory extends React.Component {
 
         this.setState({ data: tableContents, userMap: uMap });
       });
+
   }
 
   render() {
     if (this.state.data.length > 0) {
       return (
-        <div style={{ width: "80vw", maxWidth: "900px" }}>
+        <div style={{ width: "80vw", maxWidth: "700px" }}>
+          <Stats user = {this.state.user}/>
           <button
             style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
             type="button"

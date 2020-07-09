@@ -2,6 +2,7 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import "./AddExpense.css";
 import { InputGroupAppend } from "react-bootstrap/InputGroup";
+import Stats from "./Stats";
 
 class AddExpense extends React.Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class AddExpense extends React.Component {
           }}
           onSubmit={this.handleSubmit}
         >
+          <Stats user = {this.state.user}/>
           <h3 style={{ display: "flex", justifyContent: "center" }}>
             Key in your new expense
           </h3>
