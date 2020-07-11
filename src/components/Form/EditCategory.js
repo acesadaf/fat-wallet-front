@@ -66,7 +66,7 @@ class EditCategory extends React.Component {
     if (this.state.data.length > 0) {
       return (
         <div style={{ width: "80vw", maxWidth: "700px" }}>
-          <Stats user = {this.state.user}/>
+          <Stats user = {this.state.currentUser}/>
           <button
             style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
             type="button"

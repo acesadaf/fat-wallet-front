@@ -95,28 +95,25 @@ function PrintLabel(user) {
   var strr = "";
   var arr = [
     ["Good Morning, ", 6, 12],
-    ["Good Evening, ", 12, 18],
-    ["Good afternoon, ", 18, 21],
+    ["Good Afternoon, ", 12, 18],
+    ["Good Evening, ", 18, 21],
     ["Good Night, ", 21, 24],
   ];
   var hour = new Date().getHours();
+  console.log(hour);
   var i;
 
   var firstName = user.user;
-  var flag = false;
   for (i = 0; i < 3; i++) {
     strr = arr[i][0].concat(firstName);
     if ((hour > arr[i][1]) & (hour <= arr[i][2])) {
-      flag = true;
+      return <h3 style={{ padding: "3vh" }}>{strr}</h3>;
     }
   }
-  if (flag) {
-    strr = arr[3][0].concat(firstName);
-  }
-  console.log("heyyyyyyyyyyyy");
-  console.log(strr);
+  strr = arr[3][0].concat(firstName);
 
   return <h3 style={{ padding: "3vh" }}>{strr}</h3>;
+  
 }
 
 export default Graph;

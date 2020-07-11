@@ -22,7 +22,11 @@ export default class Example extends PureComponent {
   }
 
   componentWillMount() {
-    fetch("http://127.0.0.1:8000/monthly_user_data", {
+    if (localStorage.getItem("barVal") !== null){
+      var table = JSON.parse(localStorage.getItem("barVal"));
+      this.setState({data: table});
+    }else{
+      fetch("http://127.0.0.1:8000/monthly_user_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -42,10 +46,12 @@ export default class Example extends PureComponent {
           });
         }
         console.log(tableContents);
+        localStorage.setItem("barVal", JSON.stringify(tableContents));
         this.setState({ data: tableContents }, () =>
           console.log(this.state.data)
         );
       });
+    }
   }
 
 

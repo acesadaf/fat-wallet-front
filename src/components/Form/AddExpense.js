@@ -7,14 +7,23 @@ import Stats from "./Stats";
 class AddExpense extends React.Component {
   constructor(props) {
     super(props);
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    let separator='-';
+
+    let newstring = `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`;
+    console.log(newstring)
     this.state = {
       name: "",
       amount: 0,
       category: "",
-      date: new Date(),
+      date: newstring,
       description: "",
       user: props.username,
       allcategories: [],
+      displayText: ""
     };
     this.selectedCat = "Choose an Option";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
@@ -43,13 +52,42 @@ class AddExpense extends React.Component {
         this.setState({ allcategories: tableContents });
         console.log(this.state.allcategories);
       });
+
+
   }
 
   handleClick(event) {
     this.props.callbackFromParent(true);
   }
 
+  conditionalCSS() {
+    var index = 0;
+    Object.keys(this.state).map((i) => {
+      if (index <= 3) {
+        if (this.state[i] === "" || this.state[i] === 0.0) {
+          document.getElementById(i).style.color = "red";
+        }
+      }
+      index = index + 1;
+  });
+}
+
   handleSubmit(event) {
+    event.preventDefault();
+    if (
+      this.state.name === "" ||
+      this.state.amount === 0.0 ||
+      this.state.category === ""
+    ) {
+      this.setState({ displayText: "Empty Fields" }, () => {
+        this.conditionalCSS();
+      });
+
+      return;
+    }
+  
+
+
     event.preventDefault();
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
     fetch("http://127.0.0.1:8000/expense_submit", {
@@ -78,7 +116,7 @@ class AddExpense extends React.Component {
       {
         [name]: value,
       },
-      () => console.log(this.state)
+      () => (document.getElementById(name).style.color = "black")
     );
   }
 
@@ -87,7 +125,7 @@ class AddExpense extends React.Component {
       {
         category: eventKey,
       },
-      () => console.log(this.state)
+      () => (document.getElementById("category").style.color = "black")
     );
     this.selectedCat = eventKey;
   }
@@ -107,9 +145,14 @@ class AddExpense extends React.Component {
           <h3 style={{ display: "flex", justifyContent: "center" }}>
             Key in your new expense
           </h3>
-
+          <label
+            className="lh-copy white f5 center"
+            style={{ display: "flex", justifyContent: "center", textTransform: "uppercase" }}
+          >
+            {this.state.displayText}
+          </label>
           <div className="form-group">
-            <label>Name</label>
+            <label id="name">Name</label>
             <input
               type="text"
               name="name"
@@ -121,7 +164,7 @@ class AddExpense extends React.Component {
           </div>
 
           <div className="form-group">
-            <label>Amount</label>
+            <label id="amount">Amount</label>
             <input
               type="number"
               step="0.01"
@@ -141,19 +184,20 @@ class AddExpense extends React.Component {
             }}
           >
             <div className="form-group" style={{ width: "100%" }}>
-              <label for="date">Date of Expenditure: </label>
+              <label id="date" for="date">Date of Expenditure: </label>
               <br />
               <input
                 type="date"
                 id="date"
                 className="form-control form-rounded"
+
                 name="date"
                 value={this.state.date}
                 onChange={this.handleChange}
               />
             </div>
             <div className="form-group" style={{ width: "100%" }}>
-              <label>Purchase Category</label>
+              <label id="category">Purchase Category</label>
               <div
                 style={{
                   display: "flex",
@@ -207,7 +251,7 @@ class AddExpense extends React.Component {
           </div>
 
           <div className="form-group">
-            <label>Description</label>
+            <label id="description">Description</label>
             <textarea
               type="text"
               name="description"

@@ -33,21 +33,39 @@ class Signin extends Component {
     this.handleRegister = this.handleRegister.bind(this);
   }
 
-  conditionalCSS() {
+  conditionalCSS(choice) {
     var index = 0;
     Object.keys(this.state).map((i) => {
       if (index <= 6) {
         if (this.state[i] === "") {
-          document.getElementById(i).style.color = "red";
+          
+          if (choice === 1){
+            document.getElementById(i).style.color = "red";
+          }
+          else if (choice === 2){
+            console.log("-----------------------------")
+            if(index === 3 || index === 4){
+              document.getElementById(i).style.color = "red";
+            }
+          }
+          
         }
       }
       index = index + 1;
     });
-
-    // }
   }
 
   handleLogin(event) {
+    if (
+      this.state.userName === "" ||
+      this.state.password === "" 
+    ) {
+      this.setState({ displayText: "Empty Fields" }, () => {
+        this.conditionalCSS(2);
+    });
+    return;
+    }
+
     console.log(this.state.userName);
     // fetch('http://friendly-eds-52406.herokuapp.com/sign_in',{
     fetch("http://127.0.0.1:8000/sign_in", {
@@ -62,6 +80,7 @@ class Signin extends Component {
       .then((responseText) => {
         console.log(responseText);
         if (responseText === "Signed in!") {
+          localStorage.clear();
           localStorage.setItem("fatWalletUser", this.state.userName);
           localStorage.setItem("auth", "true");
           this.setState({ redirect: "/home" });
@@ -84,8 +103,8 @@ class Signin extends Component {
       this.state.password === "" ||
       this.state.cpassword === ""
     ) {
-      this.setState({ displayText: "Empty Field" }, () => {
-        this.conditionalCSS();
+      this.setState({ displayText: "Empty Fields" }, () => {
+        this.conditionalCSS(1);
       });
 
       return;
