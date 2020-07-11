@@ -17,6 +17,15 @@ class Signin extends Component {
       displayText: "",
       redirect: null,
     };
+    if (
+      typeof props.location.state != "undefined" &&
+      "signedOut" in props.location.state
+    ) {
+      localStorage.setItem("auth", "false");
+    }
+
+    console.log("wazza");
+    console.log(localStorage.getItem("auth"));
 
     this.handleChange = this.handleChange.bind(this);
     this.conditionalCSS = this.conditionalCSS.bind(this);
@@ -54,6 +63,7 @@ class Signin extends Component {
         console.log(responseText);
         if (responseText === "Signed in!") {
           localStorage.setItem("fatWalletUser", this.state.userName);
+          localStorage.setItem("auth", "true");
           this.setState({ redirect: "/home" });
         } else {
           this.setState({ displayText: responseText });

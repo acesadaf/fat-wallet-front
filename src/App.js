@@ -14,9 +14,6 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
         <div>
           <link
             href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
@@ -28,6 +25,12 @@ class App extends React.Component {
             <Route
               path="/home"
               render={(props) => {
+                if (
+                  localStorage.getItem("auth") === null ||
+                  localStorage.getItem("auth") === "false"
+                ) {
+                  return <Signin {...props} />;
+                }
                 if (typeof props.location.state != "undefined") {
                   return (
                     <div>
@@ -40,7 +43,9 @@ class App extends React.Component {
                     <Redirect
                       to={{
                         pathname: "/home",
-                        state: { name: localStorage.getItem("fatWalletUser") },
+                        state: {
+                          name: localStorage.getItem("fatWalletUser"),
+                        },
                       }}
                     />
                   );
@@ -51,6 +56,12 @@ class App extends React.Component {
             <Route
               path="/expenses"
               render={(props) => {
+                if (
+                  localStorage.getItem("auth") === null ||
+                  localStorage.getItem("auth") === "false"
+                ) {
+                  return <Signin {...props} />;
+                }
                 if (typeof props.location.state != "undefined") {
                   return (
                     <div>
@@ -63,7 +74,9 @@ class App extends React.Component {
                     <Redirect
                       to={{
                         pathname: "/expenses",
-                        state: { name: localStorage.getItem("fatWalletUser") },
+                        state: {
+                          name: localStorage.getItem("fatWalletUser"),
+                        },
                       }}
                     />
                   );

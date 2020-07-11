@@ -55,7 +55,12 @@ const navBar = (props) => {
               </a>
             </li>
           </Link>
-          <Link to="/">
+          <Link
+            to={{
+              pathname: "/",
+              state: { signedOut: true },
+            }}
+          >
             <li class="nav-item active">
               <a class="nav-link" href="#">
                 Sign Out
