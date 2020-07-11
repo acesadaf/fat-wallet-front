@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle";
 
 const navBar = (props) => {
-  console.log("inside nav");
-  console.log(props.location.state.name);
   return (
     <nav class="navbar navbar-expand-lg navbar-light">
       <img class="px-2" src={Logo} width="50" alt="cant find"></img>

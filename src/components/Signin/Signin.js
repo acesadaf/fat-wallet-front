@@ -23,17 +23,17 @@ class Signin extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
-  
-  conditionalCSS(){
+
+  conditionalCSS() {
     var index = 0;
-    Object.keys(this.state).map(i => {
-      if (index <= 6){
-        if (this.state[i] === ""){
+    Object.keys(this.state).map((i) => {
+      if (index <= 6) {
+        if (this.state[i] === "") {
           document.getElementById(i).style.color = "red";
         }
       }
       index = index + 1;
-    })
+    });
 
     // }
   }
@@ -53,7 +53,7 @@ class Signin extends Component {
       .then((responseText) => {
         console.log(responseText);
         if (responseText === "Signed in!") {
-          console.log("here");
+          localStorage.setItem("fatWalletUser", this.state.userName);
           this.setState({ redirect: "/home" });
         } else {
           this.setState({ displayText: responseText });
@@ -66,32 +66,33 @@ class Signin extends Component {
     const p = this.state.password;
     const cp = this.state.cpassword;
 
-
-
-    if (this.state.email === ""  || this.state.firstName === "" || this.state.lastName === "" || this.state.userName === "" || this.state.password === "" || this.state.cpassword === ""){
+    if (
+      this.state.email === "" ||
+      this.state.firstName === "" ||
+      this.state.lastName === "" ||
+      this.state.userName === "" ||
+      this.state.password === "" ||
+      this.state.cpassword === ""
+    ) {
       this.setState({ displayText: "Empty Field" }, () => {
-        this.conditionalCSS()
-      })
-      
-      
+        this.conditionalCSS();
+      });
+
       return;
     }
 
     if (p != cp) {
       this.setState({ displayText: "Passwords don't match. Sorry!" });
-      document.getElementById('password').style.color = "red";
-      document.getElementById('cpassword').style.color = "red";
+      document.getElementById("password").style.color = "red";
+      document.getElementById("cpassword").style.color = "red";
       return;
     }
 
-    if (!this.state.email.includes("@") | !this.state.email.includes(".com")){
+    if (!this.state.email.includes("@") | !this.state.email.includes(".com")) {
       this.setState({ displayText: "Invalid Email Address!" });
-      document.getElementById('email').style.color = "red";
+      document.getElementById("email").style.color = "red";
       return;
     }
-
-
-
 
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
     fetch("http://127.0.0.1:8000/add_user", {
@@ -115,7 +116,6 @@ class Signin extends Component {
           this.setState({ displayText: responseText });
         }
       });
-
   }
 
   // const { firstName, lastName, userName, password, cpassword } = this.state;
@@ -129,7 +129,7 @@ class Signin extends Component {
       {
         [name]: value,
       },
-      () => document.getElementById(name).style.color= "black"
+      () => (document.getElementById(name).style.color = "black")
     );
   }
 
@@ -225,7 +225,7 @@ class Signin extends Component {
                   </p>
                 </div>
                 <div class="form-group">
-                  <label id ="email">Email</label>
+                  <label id="email">Email</label>
                   <input
                     type="text"
                     name="email"
