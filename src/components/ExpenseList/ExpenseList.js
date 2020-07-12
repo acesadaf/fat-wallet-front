@@ -21,7 +21,12 @@ class ExpenseList extends React.Component {
   }
 
   componentWillMount() {
-    fetch("http://127.0.0.1:8000/expense_data", {
+    if (localStorage.getItem("expenseTableVal") !== null){
+      var table = JSON.parse(localStorage.getItem("expenseTableVal"));
+      this.setState({data: table});
+    }
+    else{
+      fetch("http://127.0.0.1:8000/expense_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -42,8 +47,12 @@ class ExpenseList extends React.Component {
             id: resData[i].id,
           };
         }
+        localStorage.setItem("expenseTableVal", JSON.stringify(tableContents));
         this.setState({ data: tableContents });
       });
+    }
+
+    
   }
 
   render() {

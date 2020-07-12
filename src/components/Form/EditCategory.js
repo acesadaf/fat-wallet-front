@@ -184,7 +184,7 @@ class EditCategory extends React.Component {
       );
     } else {
       return (
-        <Spinner className="centered" animation="border" role="status">
+        <Spinner animation="border" role="status" style={{textAlign: 'center'}}>
           <span className="sr-only">Loading...</span>
         </Spinner>
       );
