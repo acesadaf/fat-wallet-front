@@ -12,6 +12,18 @@ class Graph extends React.Component {
       firstName: "",
     };
     this.handleSelect = this.handleSelect.bind(this);
+
+    this.childPie = React.createRef();
+    this.childBar = React.createRef();
+  }
+
+  triggerUpdate() {
+    //alert("Hello World");
+    if (this.state.choice === "Expenses by Month") {
+      this.childBar.current.refresh();
+    } else {
+      this.childPie.current.refresh();
+    }
   }
 
   handleSelect(eventKey) {
@@ -75,6 +87,8 @@ class Graph extends React.Component {
           </Dropdown.Menu>
         </Dropdown>
         <ShowGraph
+          cB={this.childBar}
+          cP={this.childPie}
           choice={this.state.choice}
           user={this.props.username}
         ></ShowGraph>
@@ -83,11 +97,11 @@ class Graph extends React.Component {
   }
 }
 
-function ShowGraph({ choice, user }) {
+function ShowGraph({ cB, cP, choice, user }) {
   if (choice === "Expenses by Month") {
-    return <Bar username={user} />;
+    return <Bar ref={cB} username={user} />;
   } else {
-    return <Pie username={user} />;
+    return <Pie ref={cP} username={user} />;
   }
 }
 
@@ -113,7 +127,6 @@ function PrintLabel(user) {
   strr = arr[3][0].concat(firstName);
 
   return <h3 style={{ padding: "3vh" }}>{strr}</h3>;
-  
 }
 
 export default Graph;

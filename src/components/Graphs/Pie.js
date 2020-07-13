@@ -10,11 +10,17 @@ export default class Example extends PureComponent {
     };
   }
 
+  refresh() {
+    console.log("Finally i am here");
+    var table = JSON.parse(localStorage.getItem("pieVal"));
+    this.setState({ data: table });
+  }
+
   componentWillMount() {
-    if (localStorage.getItem("pieVal") !== null){
+    if (localStorage.getItem("pieVal") !== null) {
       var table = JSON.parse(localStorage.getItem("pieVal"));
-      this.setState({data: table});
-    }else{
+      this.setState({ data: table });
+    } else {
       fetch("http://127.0.0.1:8000/category_wise_user_data", {
         method: "post",
         headers: { "Content-type": "application/json" },
@@ -38,7 +44,7 @@ export default class Example extends PureComponent {
             console.log(this.state.data)
           );
         });
-      }
+    }
   }
 
   render() {

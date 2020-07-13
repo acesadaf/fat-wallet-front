@@ -7,14 +7,16 @@ import Stats from "./Stats";
 class AddExpense extends React.Component {
   constructor(props) {
     super(props);
-    let newDate = new Date()
+    let newDate = new Date();
     let date = newDate.getDate();
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
-    let separator='-';
+    let separator = "-";
 
-    let newstring = `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`;
-    console.log(newstring)
+    let newstring = `${year}${separator}${
+      month < 10 ? `0${month}` : `${month}`
+    }${separator}${date}`;
+    console.log(newstring);
     this.state = {
       name: "",
       amount: 0,
@@ -23,7 +25,7 @@ class AddExpense extends React.Component {
       description: "",
       user: props.username,
       allcategories: [],
-      displayText: ""
+      displayText: "",
     };
     this.selectedCat = "Choose an Option";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
@@ -52,8 +54,6 @@ class AddExpense extends React.Component {
         this.setState({ allcategories: tableContents });
         console.log(this.state.allcategories);
       });
-
-
   }
 
   handleClick(event) {
@@ -69,8 +69,8 @@ class AddExpense extends React.Component {
         }
       }
       index = index + 1;
-  });
-}
+    });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -85,8 +85,6 @@ class AddExpense extends React.Component {
 
       return;
     }
-  
-
 
     event.preventDefault();
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
@@ -105,6 +103,7 @@ class AddExpense extends React.Component {
       .then((response) => response.text())
       .then((responseText) => {
         console.log(responseText);
+        this.props.informUpdate(true);
       });
   }
 
@@ -141,13 +140,17 @@ class AddExpense extends React.Component {
           }}
           onSubmit={this.handleSubmit}
         >
-          <Stats user = {this.state.user}/>
+          <Stats user={this.state.user} />
           <h3 style={{ display: "flex", justifyContent: "center" }}>
             Key in your new expense
           </h3>
           <label
             className="lh-copy white f5 center"
-            style={{ display: "flex", justifyContent: "center", textTransform: "uppercase" }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textTransform: "uppercase",
+            }}
           >
             {this.state.displayText}
           </label>
@@ -184,13 +187,14 @@ class AddExpense extends React.Component {
             }}
           >
             <div className="form-group" style={{ width: "100%" }}>
-              <label id="date" for="date">Date of Expenditure: </label>
+              <label id="date" for="date">
+                Date of Expenditure:{" "}
+              </label>
               <br />
               <input
                 type="date"
                 id="date"
                 className="form-control form-rounded"
-
                 name="date"
                 value={this.state.date}
                 onChange={this.handleChange}
