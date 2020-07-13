@@ -21,42 +21,42 @@ class ExpenseList extends React.Component {
   }
 
   componentWillMount() {
-    if (localStorage.getItem("expenseTableVal") !== null){
+    if (localStorage.getItem("expenseTableVal") !== null) {
       var table = JSON.parse(localStorage.getItem("expenseTableVal"));
-      this.setState({data: table});
-    }
-    else{
+      this.setState({ data: table });
+    } else {
       fetch("http://127.0.0.1:8000/expense_data", {
-      method: "post",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        username: this.state.currentUser,
-      }),
-    })
-      .then((response) => response.json())
-      .then((resData) => {
-        let tableContents = [];
-        var i;
-        for (i = 0; i < resData.length; i++) {
-          tableContents[i] = {
-            name: resData[i].name,
-            amount: resData[i].amount,
-            dateOfExpense: resData[i].date,
-            category: resData[i].category_name,
-            description: resData[i].description,
-            id: resData[i].id,
-          };
-        }
-        localStorage.setItem("expenseTableVal", JSON.stringify(tableContents));
-        this.setState({ data: tableContents });
-      });
+        method: "post",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          username: this.state.currentUser,
+        }),
+      })
+        .then((response) => response.json())
+        .then((resData) => {
+          let tableContents = [];
+          var i;
+          for (i = 0; i < resData.length; i++) {
+            tableContents[i] = {
+              name: resData[i].name,
+              amount: resData[i].amount,
+              dateOfExpense: resData[i].date,
+              category: resData[i].category_name,
+              description: resData[i].description,
+              id: resData[i].id,
+            };
+          }
+          localStorage.setItem(
+            "expenseTableVal",
+            JSON.stringify(tableContents)
+          );
+          this.setState({ data: tableContents });
+        });
     }
-
-    
   }
 
   render() {
-    if (this.state.data.length > 0) {
+    if (this.state.data.length >= 0) {
       return (
         <div
           style={{

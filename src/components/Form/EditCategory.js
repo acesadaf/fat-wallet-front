@@ -59,14 +59,17 @@ class EditCategory extends React.Component {
 
         this.setState({ data: tableContents, userMap: uMap });
       });
-
   }
 
   render() {
     if (this.state.data.length > 0) {
       return (
         <div style={{ width: "80vw", maxWidth: "700px" }}>
-          <Stats user = {this.state.currentUser}/>
+          <Stats
+            totExp={this.props.totExp}
+            expCat={this.props.expCat}
+            //user={this.state.currentUser}
+          />
           <button
             style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
             type="button"
@@ -184,7 +187,11 @@ class EditCategory extends React.Component {
       );
     } else {
       return (
-        <Spinner animation="border" role="status" style={{textAlign: 'center'}}>
+        <Spinner
+          animation="border"
+          role="status"
+          style={{ textAlign: "center" }}
+        >
           <span className="sr-only">Loading...</span>
         </Spinner>
       );

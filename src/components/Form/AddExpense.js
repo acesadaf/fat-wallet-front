@@ -26,6 +26,7 @@ class AddExpense extends React.Component {
       user: props.username,
       allcategories: [],
       displayText: "",
+      added: 0,
     };
     this.selectedCat = "Choose an Option";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
@@ -60,6 +61,12 @@ class AddExpense extends React.Component {
     this.props.callbackFromParent(true);
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log("receivinggg");
+    console.log(newProps);
+    this.setState({ added: 0 });
+  }
+
   conditionalCSS() {
     var index = 0;
     Object.keys(this.state).map((i) => {
@@ -87,6 +94,13 @@ class AddExpense extends React.Component {
     }
 
     event.preventDefault();
+    this.props.informUpdate(
+      this.state.amount,
+      this.state.date,
+      this.state.category
+    );
+    this.setState({ added: parseFloat(this.state.amount) });
+
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
     fetch("http://127.0.0.1:8000/expense_submit", {
       method: "post",
@@ -103,12 +117,12 @@ class AddExpense extends React.Component {
       .then((response) => response.text())
       .then((responseText) => {
         console.log(responseText);
-        this.refs.stat.refresh(this.state.amount);
-        this.props.informUpdate(
-          this.state.amount,
-          this.state.date,
-          this.state.category
-        );
+        //this.refs.stat.refresh(this.state.amount);
+        // this.props.informUpdate(
+        //   this.state.amount,
+        //   this.state.date,
+        //   this.state.category
+        // );
       });
   }
 
@@ -145,7 +159,14 @@ class AddExpense extends React.Component {
           }}
           onSubmit={this.handleSubmit}
         >
-          <Stats ref="stat" user={this.state.user} />
+          <Stats
+            ref="stat"
+            totExp={
+              parseFloat(this.props.totExp) + parseFloat(this.state.added)
+            }
+            expCat={this.props.expCat}
+            //user={this.state.user}
+          />
           <h3 style={{ display: "flex", justifyContent: "center" }}>
             Key in your new expense
           </h3>
