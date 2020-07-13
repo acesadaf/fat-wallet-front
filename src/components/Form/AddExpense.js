@@ -103,7 +103,12 @@ class AddExpense extends React.Component {
       .then((response) => response.text())
       .then((responseText) => {
         console.log(responseText);
-        this.props.informUpdate(true);
+        this.refs.stat.refresh(this.state.amount);
+        this.props.informUpdate(
+          this.state.amount,
+          this.state.date,
+          this.state.category
+        );
       });
   }
 
@@ -140,7 +145,7 @@ class AddExpense extends React.Component {
           }}
           onSubmit={this.handleSubmit}
         >
-          <Stats user={this.state.user} />
+          <Stats ref="stat" user={this.state.user} />
           <h3 style={{ display: "flex", justifyContent: "center" }}>
             Key in your new expense
           </h3>

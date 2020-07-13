@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import moment from "moment";
 import {
   BarChart,
   Bar,
@@ -11,7 +11,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default class Example extends PureComponent {
+import React, { PureComponent } from "react";
+
+export default class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,8 +22,45 @@ export default class Example extends PureComponent {
     };
   }
 
-  refresh() {
+  refresh(amount, date) {
+    amount = parseFloat(amount);
+    var now = moment();
+    var givenDate = moment(date);
+    console.log(now);
+
+    var found = false;
+    var monthToAdd = "";
+    var counter = 5;
+
+    while (counter !== 0) {
+      if (
+        now.month() === givenDate.month() &&
+        now.year() === givenDate.year()
+      ) {
+        found = true;
+        monthToAdd = now.format("MMMM");
+      } else {
+        now.subtract(1, "month");
+      }
+      counter -= 1;
+    }
+
+    console.log(monthToAdd);
+
+    if (found) {
+      var newData = this.state.data;
+      var i;
+      for (i = 0; i < newData.length; i++) {
+        if (monthToAdd === newData[i].name) {
+          newData[i].value += amount;
+          console.log("found");
+        }
+      }
+    }
+    console.log(newData);
+    localStorage.setItem("barVal", JSON.stringify(newData));
     var table = JSON.parse(localStorage.getItem("barVal"));
+    console.log(table);
     this.setState({ data: table });
   }
 

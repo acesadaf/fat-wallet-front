@@ -1,22 +1,47 @@
 import React, { PureComponent } from "react";
 import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from "recharts";
 
-export default class Example extends PureComponent {
+export default class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
       currentUser: props.username,
     };
+
+    this.refresh = this.refresh.bind(this);
   }
 
-  refresh() {
-    console.log("Finally i am here");
+  refresh(amount, category) {
+    var newData = this.state.data;
+    var found = false;
+    var i;
+    for (i = 0; i < newData.length; i++) {
+      if (category === newData[i].name) {
+        newData[i].value += parseFloat(amount);
+        found = true;
+        console.log("found");
+      }
+    }
+    if (!found) {
+      newData.push({
+        name: category,
+        value: parseFloat(amount),
+      });
+      console.log("not found");
+    }
+
+    localStorage.setItem("pieVal", JSON.stringify(newData));
     var table = JSON.parse(localStorage.getItem("pieVal"));
     this.setState({ data: table });
   }
 
+  componentDidUpdate(event) {
+    var table = JSON.parse(localStorage.getItem("pieVal"));
+  }
+
   componentWillMount() {
+    console.log("im mounting");
     if (localStorage.getItem("pieVal") !== null) {
       var table = JSON.parse(localStorage.getItem("pieVal"));
       this.setState({ data: table });

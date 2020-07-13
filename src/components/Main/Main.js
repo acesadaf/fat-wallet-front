@@ -15,66 +15,67 @@ class Main extends Component {
     console.log("Current user is: " + this.state.currentUser);
   }
 
-  fetchBar() {
-    return fetch("http://127.0.0.1:8000/monthly_user_data", {
-      method: "post",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        username: this.state.currentUser,
-        duration: 5,
-        month_or_week: 1,
-      }),
-    })
-      .then((response) => response.json())
-      .then((resData) => {
-        console.log(resData);
-        let tableContents = [];
-        for (var key in resData) {
-          tableContents.push({
-            name: key,
-            value: resData[key],
-          });
-        }
-        console.log(tableContents);
-        localStorage.setItem("barVal", JSON.stringify(tableContents));
-        this.setState({ data: tableContents }, () =>
-          console.log(this.state.data)
-        );
-      });
-  }
+  // fetchBar() {
+  //   return fetch("http://127.0.0.1:8000/monthly_user_data", {
+  //     method: "post",
+  //     headers: { "Content-type": "application/json" },
+  //     body: JSON.stringify({
+  //       username: this.state.currentUser,
+  //       duration: 5,
+  //       month_or_week: 1,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((resData) => {
+  //       console.log(resData);
+  //       let tableContents = [];
+  //       for (var key in resData) {
+  //         tableContents.push({
+  //           name: key,
+  //           value: resData[key],
+  //         });
+  //       }
+  //       console.log(tableContents);
+  //       localStorage.setItem("barVal", JSON.stringify(tableContents));
+  //       this.setState({ data: tableContents }, () =>
+  //         console.log(this.state.data)
+  //       );
+  //     });
+  // }
 
-  fetchPie() {
-    return fetch("http://127.0.0.1:8000/category_wise_user_data", {
-      method: "post",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        username: this.state.currentUser,
-      }),
-    })
-      .then((response) => response.json())
-      .then((resData) => {
-        console.log(resData);
-        let tableContents = [];
-        for (var key in resData) {
-          tableContents.push({
-            name: key,
-            value: resData[key],
-          });
-        }
-        console.log(tableContents);
-        localStorage.setItem("pieVal", JSON.stringify(tableContents));
-        this.setState({ data: tableContents }, () =>
-          console.log(this.state.data)
-        );
-      });
-  }
+  // fetchPie() {
+  //   return fetch("http://127.0.0.1:8000/category_wise_user_data", {
+  //     method: "post",
+  //     headers: { "Content-type": "application/json" },
+  //     body: JSON.stringify({
+  //       username: this.state.currentUser,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((resData) => {
+  //       console.log(resData);
+  //       let tableContents = [];
+  //       for (var key in resData) {
+  //         tableContents.push({
+  //           name: key,
+  //           value: resData[key],
+  //         });
+  //       }
+  //       console.log(tableContents);
+  //       localStorage.setItem("pieVal", JSON.stringify(tableContents));
+  //       this.setState({ data: tableContents }, () =>
+  //         console.log(this.state.data)
+  //       );
+  //     });
+  // }
 
-  fetchBarAndPie() {
-    return Promise.all([this.fetchBar(), this.fetchPie()]);
-  }
-
-  expenseUpdate = (updatedExpense) => {
-    this.fetchBarAndPie().then(([bar, pie]) => this.refs.child.triggerUpdate());
+  // fetchBarAndPie() {
+  //   return Promise.all([this.fetchBar(), this.fetchPie()]);
+  // }
+  //this.refs.child.triggerUpdate()
+  expenseUpdate = (amount, date, category) => {
+    this.refs.child.triggerUpdate(amount, date, category);
+    //this.fetchBarAndPie().then(([bar, pie]) => console.log("fetch"));
   };
 
   expenseCallBack = (dataFromExpense) => {

@@ -17,12 +17,11 @@ class Graph extends React.Component {
     this.childBar = React.createRef();
   }
 
-  triggerUpdate() {
-    //alert("Hello World");
+  triggerUpdate(amount, date, category) {
     if (this.state.choice === "Expenses by Month") {
-      this.childBar.current.refresh();
+      this.childBar.current.refresh(amount, date);
     } else {
-      this.childPie.current.refresh();
+      this.childPie.current.refresh(amount, category);
     }
   }
 
