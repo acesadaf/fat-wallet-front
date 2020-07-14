@@ -246,8 +246,8 @@ class AddExpense extends React.Component {
                     style={{
                       width: "100%",
                       color: "black",
-                      background: "#fcda4f",
-                      border: "#fcda4f",
+                      background: "#FFAC9E",
+                      border: "#FFAC9E",
                     }}
                     variant="primary"
                     id="dropdown-basic"
@@ -266,8 +266,8 @@ class AddExpense extends React.Component {
                   class="btn btn-warning form-rounded"
                   onClick={this.handleClick}
                   style={{
-                    background: "#fcda4f",
-                    border: "#fcda4f",
+                    background: "#FFAC9E",
+                    border: "#FFAC9E",
                     display: "flex",
                     width: "100%",
                     flex: 1,
@@ -293,7 +293,7 @@ class AddExpense extends React.Component {
           </div>
 
           <button
-            style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
+            style={{ background: "#FFAC9E", color: "black", border: "#FFAC9E" }}
             type="submit"
             className="btn btn-primary btn-block form-rounded"
             onSubmit={this.handleSubmit}

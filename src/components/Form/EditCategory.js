@@ -64,14 +64,13 @@ class EditCategory extends React.Component {
   render() {
     if (this.state.data.length > 0) {
       return (
-        <div style={{ width: "80vw", maxWidth: "700px" }}>
+        <div style={{ width: "80vw", maxWidth: "700px"}}>
           <Stats
             totExp={this.props.totExp}
             expCat={this.props.expCat}
-            //user={this.state.currentUser}
           />
           <button
-            style={{ background: "#fcda4f", color: "black", border: "#fcda4f" }}
+            style={{ background: "#FFAC9E", color: "black", border: "#FFAC9E" }}
             type="button"
             className="btn btn-primary btn-block"
             onClick={this.handleClick}
@@ -85,7 +84,7 @@ class EditCategory extends React.Component {
             ></link>
             <MaterialTable
               style={{
-                background: "#fcda4f",
+                background:"#FFAC9E",
               }}
               title="Categories"
               columns={this.state.columns}

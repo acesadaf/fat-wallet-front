@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Spinner } from "react-bootstrap";
 import {
   BarChart,
   Bar,
@@ -19,6 +20,7 @@ export default class Example extends React.Component {
     this.state = {
       data: [],
       currentUser: props.username,
+      graphState: -1
     };
   }
 
@@ -67,7 +69,9 @@ export default class Example extends React.Component {
   componentWillMount() {
     if (localStorage.getItem("barVal") !== null) {
       var table = JSON.parse(localStorage.getItem("barVal"));
+      var length = JSON.parse(localStorage.getItem("ghState"));
       this.setState({ data: table });
+      this.setState({ graphState: length});
     } else {
       fetch("http://127.0.0.1:8000/monthly_user_data", {
         method: "post",
@@ -90,39 +94,54 @@ export default class Example extends React.Component {
           }
           console.log(tableContents);
           localStorage.setItem("barVal", JSON.stringify(tableContents));
-          this.setState({ data: tableContents }, () =>
-            console.log(this.state.data)
-          );
+          this.setState({ data: tableContents }, ()=> {
+            localStorage.setItem("ghState", JSON.stringify(this.state.data.length));
+            this.setState({ graphState: this.state.data.length});
+          });
         });
     }
   }
 
   render() {
-    return (
-      <div>
-        <ResponsiveContainer
-          width="99%"
-          height={750}
-          style={{ height: "80vw", maxHeight: "700px" }}
-        >
-          <BarChart
-            data={this.state.data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
+    if (this.state.graphState >= 0){
+      return (
+        <div>
+          <ResponsiveContainer
+            width="99%"
+            height={750}
+            style={{ height: "80vw", maxHeight: "700px" }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    );
+            <BarChart
+              data={this.state.data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#df622c"/>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      );
+    }
+    else{
+      return (
+        <Spinner
+          animation="border"
+          role="status"
+          style={{ textAlign: "center" }}
+        >
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      );
+    }
+    
   }
 }

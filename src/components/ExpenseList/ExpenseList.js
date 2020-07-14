@@ -23,7 +23,9 @@ class ExpenseList extends React.Component {
   componentWillMount() {
     if (localStorage.getItem("expenseTableVal") !== null) {
       var table = JSON.parse(localStorage.getItem("expenseTableVal"));
+      var len = JSON.parse(localStorage.getItem("expenseTableLength"));
       this.setState({ data: table });
+      this.setState({ tableState: len });
     } else {
       fetch("http://127.0.0.1:8000/expense_data", {
         method: "post",
@@ -44,19 +46,26 @@ class ExpenseList extends React.Component {
               category: resData[i].category_name,
               description: resData[i].description,
               id: resData[i].id,
+              tableState: -1,
             };
           }
           localStorage.setItem(
             "expenseTableVal",
             JSON.stringify(tableContents)
           );
+          localStorage.setItem(
+            "expenseTableLength",
+            JSON.stringify(this.state.data.length)
+          );
           this.setState({ data: tableContents });
+          this.setState({ tableState: this.state.data.length });
+          console.log(this.state.tableState)
         });
     }
   }
 
   render() {
-    if (this.state.data.length >= 0) {
+    if (this.state.tableState >= 0) {
       return (
         <div
           style={{
@@ -70,7 +79,7 @@ class ExpenseList extends React.Component {
             ></link>
             <MaterialTable
               style={{
-                background: "#fcda4f",
+                background: "#FFAC9E",
               }}
               title="Expense History"
               columns={this.state.columns}

@@ -9,7 +9,7 @@ class Graph extends React.Component {
     this.state = {
       choice: "Expenses by Month",
       time_of_day: "",
-      firstName: "",
+      firstName: ""
     };
     this.handleSelect = this.handleSelect.bind(this);
 

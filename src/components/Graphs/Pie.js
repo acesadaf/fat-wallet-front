@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from "recharts";
+import { Spinner } from "react-bootstrap";
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ export default class Example extends React.Component {
     this.state = {
       data: [],
       currentUser: props.username,
+      graphState: -1
     };
 
     this.refresh = this.refresh.bind(this);
@@ -44,7 +46,9 @@ export default class Example extends React.Component {
     console.log("im mounting");
     if (localStorage.getItem("pieVal") !== null) {
       var table = JSON.parse(localStorage.getItem("pieVal"));
+      var length = JSON.parse(localStorage.getItem("ghState"));
       this.setState({ data: table });
+      this.setState({ graphState: length});
     } else {
       fetch("http://127.0.0.1:8000/category_wise_user_data", {
         method: "post",
@@ -65,32 +69,47 @@ export default class Example extends React.Component {
           }
           console.log(tableContents);
           localStorage.setItem("pieVal", JSON.stringify(tableContents));
-          this.setState({ data: tableContents }, () =>
-            console.log(this.state.data)
-          );
+          this.setState({ data: tableContents }, () => {
+            localStorage.setItem("ghState", JSON.stringify(this.state.data.length));
+            this.setState({ graphState: this.state.data.length});
+          });
         });
     }
   }
 
   render() {
-    return (
-      <div>
-        <ResponsiveContainer width="99%" height={750}>
-          <PieChart>
-            <Pie
-              dataKey="value"
-              data={this.state.data}
-              fill="#8884d8"
-              label
-              cx="50%"
-              cy="50%"
-              outerRadius="80%"
-              innerRadius="50%"
-            />
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-    );
+    if (this.state.graphState >= 0){
+      return (
+        <div>
+          <ResponsiveContainer width="99%" height={750}>
+            <PieChart>
+              <Pie
+                dataKey="value"
+                data={this.state.data}
+                fill="#df622c" 
+                label
+                cx="50%"
+                cy="50%"
+                outerRadius="80%"
+                innerRadius="50%"
+              />
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      );
+    }
+    else{
+      return (
+        <Spinner
+          animation="border"
+          role="status"
+          style={{ textAlign: "center" }}
+        >
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      );
+    }
+    
   }
 }
