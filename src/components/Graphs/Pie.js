@@ -101,13 +101,16 @@ export default class Example extends React.Component {
     }
     else{
       return (
-        <Spinner
+        <div style={{ textAlign: "center" }}>
+          <Spinner width="99%" height={750}
           animation="border"
           role="status"
           style={{ textAlign: "center" }}
         >
           <span className="sr-only">Loading...</span>
         </Spinner>
+        </div>
+        
       );
     }
     

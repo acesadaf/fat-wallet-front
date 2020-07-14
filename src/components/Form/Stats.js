@@ -1,5 +1,7 @@
 import React from "react";
 import "./Stats.css";
+import "./Odometer.css";
+import Odometer from 'react-odometerjs';
 
 class Stats extends React.Component {
   constructor(props) {
@@ -14,7 +16,8 @@ class Stats extends React.Component {
         style={{
           display: "flex",
           flexdirection: "row",
-          padding: "2vh",
+          justifyContent: "center",
+          padding: "5vh",
           width: "80vw",
           maxWidth: "700px",
         }}
@@ -22,7 +25,8 @@ class Stats extends React.Component {
         <div class="card-deck">
           <div class="card bg-warning card-rounded">
             <div class="card-body text-center">
-              <h3 class="card-text">Total Expense: {totExp}</h3>
+              <h3 class="card-text">Total Expense:</h3>
+              <h3><Odometer format="(,ddd).dd" value={totExp}/></h3>
             </div>
           </div>
           <div class="card bg-warning card-rounded">

@@ -186,13 +186,16 @@ class EditCategory extends React.Component {
       );
     } else {
       return (
-        <Spinner
+        <div style={{ width: "80vw", maxWidth: "700px", textAlign: 'center'}}>
+          <Spinner 
           animation="border"
           role="status"
           style={{ textAlign: "center" }}
         >
           <span className="sr-only">Loading...</span>
         </Spinner>
+        </div>
+        
       );
     }
   }
