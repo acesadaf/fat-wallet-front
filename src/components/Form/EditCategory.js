@@ -70,9 +70,9 @@ class EditCategory extends React.Component {
             expCat={this.props.expCat}
           />
           <button
-            style={{ background: "#FFAC9E", color: "black", border: "#FFAC9E" }}
+            style={{ background: "#FFAC9E", color: "black", border: "#FFAC9E", marginBottom: "2vh"}}
             type="button"
-            className="btn btn-primary btn-block"
+            className="btn btn-warning btn-block "
             onClick={this.handleClick}
           >
             Back
@@ -85,6 +85,7 @@ class EditCategory extends React.Component {
             <MaterialTable
               style={{
                 background:"#FFAC9E",
+                marginBottom: "2vh",
               }}
               title="Categories"
               columns={this.state.columns}
@@ -190,7 +191,7 @@ class EditCategory extends React.Component {
           <Spinner 
           animation="border"
           role="status"
-          style={{ textAlign: "center" }}
+          style={{ textAlign: "center", marginTop: "50%", marginBottom: "30%" }}
         >
           <span className="sr-only">Loading...</span>
         </Spinner>

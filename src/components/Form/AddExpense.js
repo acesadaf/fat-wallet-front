@@ -155,6 +155,7 @@ class AddExpense extends React.Component {
           style={{
             width: "80vw",
             maxWidth: "700px",
+            marginBottom: "2vh"
             //border: "1px solid black",
           }}
           onSubmit={this.handleSubmit}
@@ -167,7 +168,7 @@ class AddExpense extends React.Component {
             expCat={this.props.expCat}
             //user={this.state.user}
           />
-          <h3 style={{ display: "flex", justifyContent: "center" }}>
+          <h3 style={{ display: "flex", justifyContent: "center"}}>
             Key in your new expense
           </h3>
           <label
@@ -248,6 +249,7 @@ class AddExpense extends React.Component {
                       color: "black",
                       background: "#FFAC9E",
                       border: "#FFAC9E",
+                      boxShadow: "0 1.8px 2.2px rgba(0, 0, 0, 0.02), 0 4.3px 5.3px rgba(0, 0, 0, 0.028), 0 8.1px 10px rgba(0, 0, 0, 0.035), 0 14.5px 17.9px rgba(0, 0, 0, 0.042), 0 27.2px 33.4px rgba(0, 0, 0, 0.05), 0 65px 80px rgba(0, 0, 0, 0.07)"
                     }}
                     variant="primary"
                     id="dropdown-basic"
@@ -295,7 +297,7 @@ class AddExpense extends React.Component {
           <button
             style={{ background: "#FFAC9E", color: "black", border: "#FFAC9E" }}
             type="submit"
-            className="btn btn-primary btn-block form-rounded"
+            className="btn btn-warning btn-block form-rounded"
             onSubmit={this.handleSubmit}
           >
             Submit

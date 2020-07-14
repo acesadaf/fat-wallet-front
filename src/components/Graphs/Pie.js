@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from "recharts";
 import { Spinner } from "react-bootstrap";
+import ReactLogo from './error.svg';
+import "./Bar_Pie.css";
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -61,7 +63,9 @@ export default class Example extends React.Component {
         .then((resData) => {
           console.log(resData);
           let tableContents = [];
+          var sum = 0;
           for (var key in resData) {
+            sum = sum + resData[key]
             tableContents.push({
               name: key,
               value: resData[key],
@@ -70,23 +74,36 @@ export default class Example extends React.Component {
           console.log(tableContents);
           localStorage.setItem("pieVal", JSON.stringify(tableContents));
           this.setState({ data: tableContents }, () => {
-            localStorage.setItem("ghState", JSON.stringify(this.state.data.length));
-            this.setState({ graphState: this.state.data.length});
+            localStorage.setItem("ghState", JSON.stringify(sum));
+            this.setState({ graphState: sum});
           });
         });
     }
   }
 
   render() {
-    if (this.state.graphState >= 0){
+    if (this.state.graphState > 0){
       return (
         <div>
-          <ResponsiveContainer width="99%" height={750}>
+          <ResponsiveContainer width="99%" height={650}>
             <PieChart>
+            <defs>
+              <linearGradient
+                id="colorUv"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="100%"
+                spreadMethod="reflect"
+              >
+                <stop offset="0" stopColor="#f28f6d" />
+                <stop offset="1" stopColor="#df622c" />
+              </linearGradient>
+              </defs>
               <Pie
                 dataKey="value"
                 data={this.state.data}
-                fill="#df622c" 
+                fill="url(#colorUv)"
                 label
                 cx="50%"
                 cy="50%"
@@ -99,13 +116,40 @@ export default class Example extends React.Component {
         </div>
       );
     }
+    else if(this.state.graphState == 0){
+      return(
+        <div>
+          <div >
+            <img 
+            class = "center"
+            src={ReactLogo} 
+            alt="React Logo" 
+            />
+          </div>
+          <label
+            className="lh-copy white f5 center"
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              textTransform: "uppercase",
+              padding: "5vh",
+              fontSize: "3vh"
+            }}
+          >
+            No Data to show
+          </label>
+        </div>
+        
+      );
+    }
     else{
       return (
         <div style={{ textAlign: "center" }}>
-          <Spinner width="99%" height={750}
+          <Spinner width="99%" height={650}
           animation="border"
           role="status"
-          style={{ textAlign: "center" }}
+          style={{ textAlign: "center" , marginTop: "30%", marginBottom: "30%" }}
         >
           <span className="sr-only">Loading...</span>
         </Spinner>

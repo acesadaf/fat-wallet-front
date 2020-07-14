@@ -54,7 +54,7 @@ class Graph extends React.Component {
 
   render() {
     return (
-      <div style={{ width: "100vh" }}>
+      <div style={{ width: "100vh"}}>
         <PrintLabel user={this.state.firstName} />
         <Dropdown
           name="category"
@@ -74,7 +74,7 @@ class Graph extends React.Component {
             variant="primary"
             id="dropdown-basic"
           >
-            {this.state.choice}
+            <p style={{fontSize: "3vh"}}>{this.state.choice}</p> 
           </Dropdown.Toggle>
           <Dropdown.Menu style={{ width: "100%", justifyContent: "center" }}>
             <Dropdown.Item eventKey="Expenses by Month">
@@ -125,7 +125,7 @@ function PrintLabel(user) {
   }
   strr = arr[3][0].concat(firstName);
 
-  return <h3 style={{ padding: "3vh" }}>{strr}</h3>;
+  return <h3 style={{ paddingTop: "3vh", paddingBottom: "1vh", paddingLeft: "3vh"  }}>{strr}</h3>;
 }
 
 export default Graph;

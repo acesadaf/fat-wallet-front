@@ -17,12 +17,11 @@ class Stats extends React.Component {
           display: "flex",
           flexdirection: "row",
           justifyContent: "center",
-          padding: "5vh",
           width: "80vw",
           maxWidth: "700px",
         }}
       >
-        <div class="card-deck">
+        <div class="card-deck card-margin" >
           <div class="card bg-warning card-rounded">
             <div class="card-body text-center">
               <h3 class="card-text">Total Expense:</h3>
