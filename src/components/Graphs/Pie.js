@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from "recharts";
 import { Spinner } from "react-bootstrap";
-import ReactLogo from './error.svg';
+import ReactLogo from "./error.svg";
 import "./Bar_Pie.css";
 
 export default class Example extends React.Component {
@@ -10,10 +10,11 @@ export default class Example extends React.Component {
     this.state = {
       data: [],
       currentUser: props.username,
-      graphState: -1
+      graphState: -1,
     };
 
     this.refresh = this.refresh.bind(this);
+    this.fetchRefresh = this.fetchRefresh.bind(this);
   }
 
   refresh(amount, category) {
@@ -40,65 +41,73 @@ export default class Example extends React.Component {
     this.setState({ data: table });
   }
 
+  fetchRefresh() {
+    fetch("http://127.0.0.1:8000/category_wise_user_data", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.currentUser,
+      }),
+    })
+      .then((response) => response.json())
+      .then((resData) => {
+        console.log(resData);
+        let tableContents = [];
+        var sum = 0;
+        for (var key in resData) {
+          sum = sum + resData[key];
+          tableContents.push({
+            name: key,
+            value: resData[key],
+          });
+        }
+        console.log(tableContents);
+        localStorage.setItem("pieVal", JSON.stringify(tableContents));
+        this.setState({ data: tableContents }, () => {
+          localStorage.setItem("ghState", JSON.stringify(sum));
+          this.setState({ graphState: sum });
+        });
+      });
+  }
+
   componentDidUpdate(event) {
     var table = JSON.parse(localStorage.getItem("pieVal"));
   }
 
-  componentWillMount() {
+  componentDidMount() {
     console.log("im mounting");
-    if (localStorage.getItem("pieVal") !== null) {
+    if (
+      localStorage.getItem("pieVal") !== null &&
+      localStorage.getItem("ePie") === "false"
+    ) {
       var table = JSON.parse(localStorage.getItem("pieVal"));
       var length = JSON.parse(localStorage.getItem("ghState"));
       this.setState({ data: table });
-      this.setState({ graphState: length});
+      this.setState({ graphState: length });
     } else {
-      fetch("http://127.0.0.1:8000/category_wise_user_data", {
-        method: "post",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          username: this.state.currentUser,
-        }),
-      })
-        .then((response) => response.json())
-        .then((resData) => {
-          console.log(resData);
-          let tableContents = [];
-          var sum = 0;
-          for (var key in resData) {
-            sum = sum + resData[key]
-            tableContents.push({
-              name: key,
-              value: resData[key],
-            });
-          }
-          console.log(tableContents);
-          localStorage.setItem("pieVal", JSON.stringify(tableContents));
-          this.setState({ data: tableContents }, () => {
-            localStorage.setItem("ghState", JSON.stringify(sum));
-            this.setState({ graphState: sum});
-          });
-        });
+      this.fetchRefresh();
+      localStorage.setItem("ePie", false);
     }
   }
 
   render() {
-    if (this.state.graphState > 0){
+    if (this.state.graphState > 0) {
       return (
         <div>
           <ResponsiveContainer width="99%" height={650}>
             <PieChart>
-            <defs>
-              <linearGradient
-                id="colorUv"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="100%"
-                spreadMethod="reflect"
-              >
-                <stop offset="0" stopColor="#f28f6d" />
-                <stop offset="1" stopColor="#df622c" />
-              </linearGradient>
+              <defs>
+                <linearGradient
+                  id="colorUv"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="100%"
+                  spreadMethod="reflect"
+                >
+                  <stop offset="0" stopColor="#f28f6d" />
+                  <stop offset="1" stopColor="#df622c" />
+                </linearGradient>
               </defs>
               <Pie
                 dataKey="value"
@@ -115,16 +124,11 @@ export default class Example extends React.Component {
           </ResponsiveContainer>
         </div>
       );
-    }
-    else if(this.state.graphState == 0){
-      return(
+    } else if (this.state.graphState == 0) {
+      return (
         <div>
-          <div >
-            <img 
-            class = "center"
-            src={ReactLogo} 
-            alt="React Logo" 
-            />
+          <div>
+            <img class="center" src={ReactLogo} alt="React Logo" />
           </div>
           <label
             className="lh-copy white f5 center"
@@ -134,29 +138,31 @@ export default class Example extends React.Component {
               justifyContent: "center",
               textTransform: "uppercase",
               padding: "5vh",
-              fontSize: "3vh"
+              fontSize: "3vh",
             }}
           >
             No Data to show
           </label>
         </div>
-        
       );
-    }
-    else{
+    } else {
       return (
         <div style={{ textAlign: "center" }}>
-          <Spinner width="99%" height={650}
-          animation="border"
-          role="status"
-          style={{ textAlign: "center" , marginTop: "30%", marginBottom: "30%" }}
-        >
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+          <Spinner
+            width="99%"
+            height={650}
+            animation="border"
+            role="status"
+            style={{
+              textAlign: "center",
+              marginTop: "30%",
+              marginBottom: "30%",
+            }}
+          >
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         </div>
-        
       );
     }
-    
   }
 }

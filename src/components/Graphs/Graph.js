@@ -9,7 +9,7 @@ class Graph extends React.Component {
     this.state = {
       choice: "Expenses by Month",
       time_of_day: "",
-      firstName: ""
+      firstName: "",
     };
     this.handleSelect = this.handleSelect.bind(this);
 
@@ -17,11 +17,16 @@ class Graph extends React.Component {
     this.childBar = React.createRef();
   }
 
-  triggerUpdate(amount, date, category) {
-    if (this.state.choice === "Expenses by Month") {
-      this.childBar.current.refresh(amount, date);
+  triggerUpdate(amount, date, category, refresh = false) {
+    if (!refresh) {
+      if (this.state.choice === "Expenses by Month") {
+        this.childBar.current.refresh(amount, date);
+      } else {
+        this.childPie.current.refresh(amount, category);
+      }
     } else {
-      this.childPie.current.refresh(amount, category);
+      this.childBar.current.fetchRefresh();
+      this.childPie.current.fetchRefresh();
     }
   }
 
@@ -54,7 +59,7 @@ class Graph extends React.Component {
 
   render() {
     return (
-      <div style={{ width: "100vh"}}>
+      <div style={{ width: "100vh" }}>
         <PrintLabel user={this.state.firstName} />
         <Dropdown
           name="category"
@@ -74,7 +79,7 @@ class Graph extends React.Component {
             variant="primary"
             id="dropdown-basic"
           >
-            <p style={{fontSize: "3vh"}}>{this.state.choice}</p> 
+            <p style={{ fontSize: "3vh" }}>{this.state.choice}</p>
           </Dropdown.Toggle>
           <Dropdown.Menu style={{ width: "100%", justifyContent: "center" }}>
             <Dropdown.Item eventKey="Expenses by Month">
@@ -125,7 +130,11 @@ function PrintLabel(user) {
   }
   strr = arr[3][0].concat(firstName);
 
-  return <h3 style={{ paddingTop: "3vh", paddingBottom: "1vh", paddingLeft: "3vh"  }}>{strr}</h3>;
+  return (
+    <h3 style={{ paddingTop: "3vh", paddingBottom: "1vh", paddingLeft: "3vh" }}>
+      {strr}
+    </h3>
+  );
 }
 
 export default Graph;

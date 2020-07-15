@@ -1,6 +1,6 @@
 import moment from "moment";
 import { Spinner } from "react-bootstrap";
-import ReactLogo from './error.svg';
+import ReactLogo from "./error.svg";
 import "./Bar_Pie.css";
 import {
   BarChart,
@@ -22,8 +22,9 @@ export default class Example extends React.Component {
     this.state = {
       data: [],
       currentUser: props.username,
-      graphState: -1
+      graphState: -1,
     };
+    this.fetchRefresh = this.fetchRefresh.bind(this);
   }
 
   refresh(amount, date) {
@@ -68,46 +69,55 @@ export default class Example extends React.Component {
     this.setState({ data: table });
   }
 
-  componentWillMount() {
-    if (localStorage.getItem("barVal") !== null) {
+  fetchRefresh() {
+    fetch("http://127.0.0.1:8000/monthly_user_data", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.currentUser,
+        duration: 5,
+        month_or_week: 1,
+      }),
+    })
+      .then((response) => response.json())
+      .then((resData) => {
+        console.log(resData);
+        let tableContents = [];
+        var sum = 0;
+        for (var key in resData) {
+          sum = sum + resData[key];
+          tableContents.push({
+            name: key,
+            value: resData[key],
+          });
+        }
+        console.log(tableContents);
+        localStorage.setItem("barVal", JSON.stringify(tableContents));
+        this.setState({ data: tableContents }, () => {
+          localStorage.setItem("ghState", JSON.stringify(sum));
+          this.setState({ graphState: sum });
+        });
+      });
+  }
+
+  componentDidMount() {
+    console.log("ebar checking", localStorage.getItem("eBar"));
+    if (
+      localStorage.getItem("barVal") !== null &&
+      localStorage.getItem("eBar") === "false"
+    ) {
       var table = JSON.parse(localStorage.getItem("barVal"));
       var length = JSON.parse(localStorage.getItem("ghState"));
       this.setState({ data: table });
-      this.setState({ graphState: length});
+      this.setState({ graphState: length });
     } else {
-      fetch("http://127.0.0.1:8000/monthly_user_data", {
-        method: "post",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          username: this.state.currentUser,
-          duration: 5,
-          month_or_week: 1,
-        }),
-      })
-        .then((response) => response.json())
-        .then((resData) => {
-          console.log(resData);
-          let tableContents = [];
-          var sum = 0;
-          for (var key in resData) {
-            sum = sum + resData[key]
-            tableContents.push({
-              name: key,
-              value: resData[key],
-            });
-          }
-          console.log(tableContents);
-          localStorage.setItem("barVal", JSON.stringify(tableContents));
-          this.setState({ data: tableContents }, ()=> {
-            localStorage.setItem("ghState", JSON.stringify(sum));
-            this.setState({ graphState: sum});
-          });
-        });
+      this.fetchRefresh();
+      localStorage.setItem("eBar", false);
     }
   }
 
   render() {
-    if (this.state.graphState > 0){
+    if (this.state.graphState > 0) {
       return (
         <div>
           <ResponsiveContainer
@@ -125,38 +135,33 @@ export default class Example extends React.Component {
               }}
             >
               <defs>
-              <linearGradient
-                id="colorUv"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="100%"
-                spreadMethod="reflect"
-              >
-                <stop offset="0" stopColor="#f28f6d" />
-                <stop offset="1" stopColor="#df622c" />
-              </linearGradient>
+                <linearGradient
+                  id="colorUv"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="100%"
+                  spreadMethod="reflect"
+                >
+                  <stop offset="0" stopColor="#f28f6d" />
+                  <stop offset="1" stopColor="#df622c" />
+                </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="value" fill="url(#colorUv)"/>
+              <Bar dataKey="value" fill="url(#colorUv)" />
             </BarChart>
           </ResponsiveContainer>
         </div>
       );
-    }
-    else if(this.state.graphState == 0){
-      return(
+    } else if (this.state.graphState == 0) {
+      return (
         <div>
-          <div >
-            <img 
-            class = "center"
-            src={ReactLogo} 
-            alt="React Logo" 
-            />
+          <div>
+            <img class="center" src={ReactLogo} alt="React Logo" />
           </div>
           <label
             className="lh-copy white f5 center"
@@ -166,30 +171,31 @@ export default class Example extends React.Component {
               textTransform: "uppercase",
               padding: "5vh",
               width: "100%",
-              fontSize: "3vh"
+              fontSize: "3vh",
             }}
           >
             No Data to show
-        </label>
+          </label>
         </div>
-        
       );
-    }
-    else{
+    } else {
       return (
-        <div style={{ textAlign: "center"}}>
+        <div style={{ textAlign: "center" }}>
           <Spinner
-          width="99%" height={750}
-          animation="border"
-          role="status"
-          style={{ textAlign: "center", marginTop: "30%", marginBottom: "30%" }}
-        >
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+            width="99%"
+            height={750}
+            animation="border"
+            role="status"
+            style={{
+              textAlign: "center",
+              marginTop: "30%",
+              marginBottom: "30%",
+            }}
+          >
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         </div>
-        
       );
     }
-    
   }
 }

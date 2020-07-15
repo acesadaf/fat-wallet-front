@@ -149,7 +149,8 @@ class Main extends Component {
     //console.log(JSON.parse(localStorage.getItem("statistics"))[0]);
     if (
       localStorage.getItem("statistics") !== null &&
-      JSON.parse(localStorage.getItem("statistics"))[0] != "0"
+      JSON.parse(localStorage.getItem("statistics"))[0] != "0" &&
+      localStorage.getItem("eCard") === "false"
     ) {
       var lst = JSON.parse(localStorage.getItem("statistics"));
       console.log("stats existtttttttttt");
@@ -159,6 +160,7 @@ class Main extends Component {
       });
     } else {
       this.fetchCards();
+      localStorage.setItem("eCard", "false");
     }
   }
 

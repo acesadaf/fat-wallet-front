@@ -20,8 +20,12 @@ class ExpenseList extends React.Component {
     console.log(props.location.state);
   }
 
-  componentWillMount() {
-    if (localStorage.getItem("expenseTableVal") !== null) {
+  componentDidMount() {
+    //console.log("eList checking...", localStorage.getItem("eList"));
+    if (
+      localStorage.getItem("expenseTableVal") !== null &&
+      localStorage.getItem("eList") === "false"
+    ) {
       var table = JSON.parse(localStorage.getItem("expenseTableVal"));
       var len = JSON.parse(localStorage.getItem("expenseTableLength"));
       this.setState({ data: table });
@@ -57,9 +61,10 @@ class ExpenseList extends React.Component {
             "expenseTableLength",
             JSON.stringify(this.state.data.length)
           );
+          localStorage.setItem("eList", "false");
           this.setState({ data: tableContents });
           this.setState({ tableState: this.state.data.length });
-          console.log(this.state.tableState)
+          console.log(this.state.tableState);
         });
     }
   }
@@ -87,6 +92,10 @@ class ExpenseList extends React.Component {
               editable={{
                 onRowUpdate: (newData, oldData) =>
                   new Promise((resolve) => {
+                    localStorage.setItem("eCard", "true");
+                    localStorage.setItem("eBar", "true");
+                    localStorage.setItem("ePie", "true");
+                    localStorage.setItem("eList", "true");
                     setTimeout(() => {
                       resolve();
                       if (oldData) {
@@ -106,11 +115,23 @@ class ExpenseList extends React.Component {
                             return { ...prevState, data };
                           });
                         } else {
-                          this.setState((prevState) => {
-                            const data = [...prevState.data];
-                            data[data.indexOf(oldData)] = newData;
-                            return { ...prevState, data };
-                          });
+                          this.setState(
+                            (prevState) => {
+                              const data = [...prevState.data];
+                              data[data.indexOf(oldData)] = newData;
+                              return { ...prevState, data };
+                            },
+                            () => {
+                              localStorage.setItem(
+                                "expenseTableVal",
+                                JSON.stringify(this.state.data)
+                              );
+                              localStorage.setItem(
+                                "expenseTableLength",
+                                JSON.stringify(this.state.data.length)
+                              );
+                            }
+                          );
                           fetch("http://127.0.0.1:8000/expense_edit", {
                             method: "post",
                             headers: { "Content-type": "application/json" },
@@ -133,13 +154,39 @@ class ExpenseList extends React.Component {
                   }),
                 onRowDelete: (oldData) =>
                   new Promise((resolve) => {
+                    localStorage.setItem("eCard", "true");
+                    localStorage.setItem("eBar", "true");
+                    localStorage.setItem("ePie", "true");
+
+                    // localStorage.setItem("changed", "true");
+                    // if (localStorage.getItem("cAmount") === null)
+                    // {}
+                    // localStorage.setItem(
+                    //   "cAmount",
+                    //   (-oldData.amount).toString()
+                    // );
+                    // localStorage.setItem("cDate", oldData.dateOfExpense);
+                    //localStorage.setItem("eList", "true");
                     setTimeout(() => {
                       resolve();
-                      this.setState((prevState) => {
-                        const data = [...prevState.data];
-                        data.splice(data.indexOf(oldData), 1);
-                        return { ...prevState, data };
-                      });
+                      this.setState(
+                        (prevState) => {
+                          const data = [...prevState.data];
+                          data.splice(data.indexOf(oldData), 1);
+                          return { ...prevState, data };
+                        },
+                        () => {
+                          localStorage.setItem(
+                            "expenseTableVal",
+                            JSON.stringify(this.state.data)
+                          );
+                          localStorage.setItem(
+                            "expenseTableLength",
+                            JSON.stringify(this.state.data.length)
+                          );
+                        }
+                      );
+
                       fetch("http://127.0.0.1:8000/expense_delete", {
                         method: "post",
                         headers: { "Content-type": "application/json" },

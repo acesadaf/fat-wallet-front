@@ -37,7 +37,7 @@ class AddExpense extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetch("http://127.0.0.1:8000/category_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
@@ -92,7 +92,7 @@ class AddExpense extends React.Component {
 
       return;
     }
-
+    localStorage.setItem("eList", "true");
     event.preventDefault();
     this.props.informUpdate(
       this.state.amount,

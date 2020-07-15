@@ -38,17 +38,14 @@ class Signin extends Component {
     Object.keys(this.state).map((i) => {
       if (index <= 6) {
         if (this.state[i] === "") {
-          
-          if (choice === 1){
+          if (choice === 1) {
             document.getElementById(i).style.color = "red";
-          }
-          else if (choice === 2){
-            console.log("-----------------------------")
-            if(index === 3 || index === 4){
+          } else if (choice === 2) {
+            console.log("-----------------------------");
+            if (index === 3 || index === 4) {
               document.getElementById(i).style.color = "red";
             }
           }
-          
         }
       }
       index = index + 1;
@@ -56,14 +53,11 @@ class Signin extends Component {
   }
 
   handleLogin(event) {
-    if (
-      this.state.userName === "" ||
-      this.state.password === "" 
-    ) {
+    if (this.state.userName === "" || this.state.password === "") {
       this.setState({ displayText: "Empty Fields" }, () => {
         this.conditionalCSS(2);
-    });
-    return;
+      });
+      return;
     }
 
     console.log(this.state.userName);
@@ -83,6 +77,10 @@ class Signin extends Component {
           localStorage.clear();
           localStorage.setItem("fatWalletUser", this.state.userName);
           localStorage.setItem("auth", "true");
+          localStorage.setItem("eBar", "true");
+          localStorage.setItem("ePie", "true");
+          localStorage.setItem("eCard", "true");
+          localStorage.setItem("eList", "true");
           this.setState({ redirect: "/home" });
         } else {
           this.setState({ displayText: responseText });

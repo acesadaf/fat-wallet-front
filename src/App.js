@@ -11,6 +11,13 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   //this.childMain = React.createRef();
+  // }
+  // tellMain() {
+  //   this.mainChild.current.expenseUpdate(0, "", "", false, true);
+  // }
   render() {
     return (
       <Router>
@@ -66,7 +73,7 @@ class App extends React.Component {
                   return (
                     <div>
                       <NavBar {...props} />
-                      <ExpenseList {...props} />
+                      <ExpenseList callbackFromApp={this.tellMain} {...props} />
                     </div>
                   );
                 } else {
