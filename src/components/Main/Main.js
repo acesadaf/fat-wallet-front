@@ -16,6 +16,7 @@ class Main extends Component {
     console.log(props.location.state);
     console.log("Current user is: " + this.state.currentUser);
     this.refreshCards = this.refreshCards.bind(this);
+    this.fetchCards = this.fetchCards.bind(this);
   }
 
   // fetchBar() {
@@ -76,9 +77,13 @@ class Main extends Component {
   //   return Promise.all([this.fetchBar(), this.fetchPie()]);
   // }
   //this.refs.child.triggerUpdate()
-  expenseUpdate = (amount, date, category) => {
-    this.refs.child.triggerUpdate(amount, date, category);
-    this.refreshCards(amount);
+  expenseUpdate = (amount, date, category, done) => {
+    if (!done) {
+      this.refs.child.triggerUpdate(amount, date, category);
+      this.refreshCards(amount, category);
+    } else {
+      this.fetchCards();
+    }
 
     //this.fetchBarAndPie().then(([bar, pie]) => console.log("fetch"));
   };
@@ -97,10 +102,17 @@ class Main extends Component {
     localStorage.setItem("eoc", "true");
   };
 
-  refreshCards(amount) {
+  refreshCards(amount, category) {
     var lst = JSON.parse(localStorage.getItem("statistics"));
-    var total = parseFloat(lst[0]) + parseFloat(amount);
-    var most = lst[1];
+    var total;
+    var most;
+    if (lst !== null) {
+      total = parseFloat(lst[0]) + parseFloat(amount);
+      most = lst[1];
+    } else {
+      total = parseFloat(amount);
+      most = category;
+    }
 
     var statistics = [];
     statistics[0] = total.toString();
@@ -109,6 +121,25 @@ class Main extends Component {
     localStorage.setItem("statistics", JSON.stringify(statistics));
     var lst = JSON.parse(localStorage.getItem("statistics"));
     this.setState({ totExp: lst[0], expCat: lst[1] });
+  }
+
+  fetchCards() {
+    console.log("inside stats");
+    fetch("http://127.0.0.1:8000/stats_data", {
+      method: "post",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.currentUser,
+      }),
+    })
+      .then((response) => response.json())
+      .then((resData) => {
+        var statistics = [];
+        statistics[0] = resData[0];
+        statistics[1] = resData[1];
+        localStorage.setItem("statistics", JSON.stringify(statistics));
+        this.setState({ totExp: resData[0], expCat: resData[1] });
+      });
   }
 
   componentDidMount() {
@@ -127,22 +158,7 @@ class Main extends Component {
         console.log(this.state.totExp);
       });
     } else {
-      console.log("inside stats");
-      fetch("http://127.0.0.1:8000/stats_data", {
-        method: "post",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          username: this.state.currentUser,
-        }),
-      })
-        .then((response) => response.json())
-        .then((resData) => {
-          var statistics = [];
-          statistics[0] = resData[0];
-          statistics[1] = resData[1];
-          localStorage.setItem("statistics", JSON.stringify(statistics));
-          this.setState({ totExp: resData[0], expCat: resData[1] });
-        });
+      this.fetchCards();
     }
   }
 
