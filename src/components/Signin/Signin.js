@@ -137,6 +137,9 @@ class Signin extends Component {
       .then((responseText) => {
         console.log(responseText);
         if (responseText === "Added") {
+          localStorage.clear();
+          localStorage.setItem("fatWalletUser", this.state.userName);
+          localStorage.setItem("auth", "true");
           console.log("here");
           this.setState({ redirect: "/home" });
         } else {

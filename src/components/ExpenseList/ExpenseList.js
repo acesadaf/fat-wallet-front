@@ -157,6 +157,7 @@ class ExpenseList extends React.Component {
                     localStorage.setItem("eCard", "true");
                     localStorage.setItem("eBar", "true");
                     localStorage.setItem("ePie", "true");
+                    //localStorage.setItem("eList", "true");
 
                     // localStorage.setItem("changed", "true");
                     // if (localStorage.getItem("cAmount") === null)

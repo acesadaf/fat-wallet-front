@@ -13,15 +13,15 @@ class AddExpense extends React.Component {
     let year = newDate.getFullYear();
     let separator = "-";
 
-    let newstring = `${year}${separator}${
+    this.newstring = `${year}${separator}${
       month < 10 ? `0${month}` : `${month}`
     }${separator}${date}`;
-    console.log(newstring);
+    console.log(this.newstring);
     this.state = {
       name: "",
       amount: 0,
       category: "",
-      date: newstring,
+      date: this.newstring,
       description: "",
       user: props.username,
       allcategories: [],
@@ -93,6 +93,12 @@ class AddExpense extends React.Component {
       return;
     }
     localStorage.setItem("eList", "true");
+    this.setState({
+      name: "",
+      amount: 0,
+      date: this.newstring,
+      description: "",
+    });
     event.preventDefault();
     this.props.informUpdate(
       this.state.amount,
@@ -100,6 +106,7 @@ class AddExpense extends React.Component {
       this.state.category,
       false
     );
+    localStorage.setItem("ghState", "1");
     this.setState({ added: parseFloat(this.state.amount) });
 
     // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
@@ -125,6 +132,7 @@ class AddExpense extends React.Component {
           true
         );
         this.state.added = 0;
+
         //this.refs.stat.refresh(this.state.amount);
         // this.props.informUpdate(
         //   this.state.amount,
@@ -160,6 +168,7 @@ class AddExpense extends React.Component {
     return (
       <div>
         <form
+          id="addForm"
           style={{
             width: "80vw",
             maxWidth: "700px",

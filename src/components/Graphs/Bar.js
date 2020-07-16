@@ -28,6 +28,7 @@ export default class Example extends React.Component {
   }
 
   refresh(amount, date) {
+    this.setState({ graphState: 1 });
     amount = parseFloat(amount);
     var now = moment();
     var givenDate = moment(date);
@@ -95,7 +96,7 @@ export default class Example extends React.Component {
         localStorage.setItem("barVal", JSON.stringify(tableContents));
         this.setState({ data: tableContents }, () => {
           localStorage.setItem("ghState", JSON.stringify(sum));
-          this.setState({ graphState: sum });
+          this.setState({ graphState: parseFloat(sum) });
         });
       });
   }
@@ -106,10 +107,12 @@ export default class Example extends React.Component {
       localStorage.getItem("barVal") !== null &&
       localStorage.getItem("eBar") === "false"
     ) {
+      console.log("LOKUL ISHTORAGE");
       var table = JSON.parse(localStorage.getItem("barVal"));
       var length = JSON.parse(localStorage.getItem("ghState"));
+      console.log(length);
       this.setState({ data: table });
-      this.setState({ graphState: length });
+      this.setState({ graphState: parseFloat(length) });
     } else {
       this.fetchRefresh();
       localStorage.setItem("eBar", false);
