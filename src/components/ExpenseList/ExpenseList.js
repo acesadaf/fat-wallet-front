@@ -92,6 +92,16 @@ class ExpenseList extends React.Component {
               editable={{
                 onRowUpdate: (newData, oldData) =>
                   new Promise((resolve) => {
+                    var lst = JSON.parse(localStorage.getItem("statistics"));
+                    var newAmount =
+                      parseFloat(lst[0]) + (oldData.amount - newData.amount);
+                    var statistics = [];
+                    statistics[0] = newAmount.toString();
+                    statistics[1] = lst[1];
+                    localStorage.setItem(
+                      "statistics",
+                      JSON.stringify(statistics)
+                    );
                     localStorage.setItem("eCard", "true");
                     localStorage.setItem("eBar", "true");
                     localStorage.setItem("ePie", "true");
@@ -154,20 +164,19 @@ class ExpenseList extends React.Component {
                   }),
                 onRowDelete: (oldData) =>
                   new Promise((resolve) => {
+                    var lst = JSON.parse(localStorage.getItem("statistics"));
+                    var newAmount = parseFloat(lst[0]) - oldData.amount;
+                    var statistics = [];
+                    statistics[0] = newAmount.toString();
+                    statistics[1] = lst[1];
+                    localStorage.setItem(
+                      "statistics",
+                      JSON.stringify(statistics)
+                    );
                     localStorage.setItem("eCard", "true");
                     localStorage.setItem("eBar", "true");
                     localStorage.setItem("ePie", "true");
-                    //localStorage.setItem("eList", "true");
 
-                    // localStorage.setItem("changed", "true");
-                    // if (localStorage.getItem("cAmount") === null)
-                    // {}
-                    // localStorage.setItem(
-                    //   "cAmount",
-                    //   (-oldData.amount).toString()
-                    // );
-                    // localStorage.setItem("cDate", oldData.dateOfExpense);
-                    //localStorage.setItem("eList", "true");
                     setTimeout(() => {
                       resolve();
                       this.setState(

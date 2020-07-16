@@ -165,6 +165,8 @@ class Main extends Component {
   }
 
   render() {
+    console.log("totexppppppppppppppppp");
+    console.log(this.state.totExp);
     return (
       <div
         style={{
