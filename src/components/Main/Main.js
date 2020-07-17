@@ -14,7 +14,6 @@ class Main extends Component {
     };
     //this.child = React.createRef();
     console.log(props.location.state);
-    console.log("Current user is: " + this.state.currentUser);
     this.refreshCards = this.refreshCards.bind(this);
     this.fetchCards = this.fetchCards.bind(this);
   }
@@ -77,6 +76,10 @@ class Main extends Component {
   //   return Promise.all([this.fetchBar(), this.fetchPie()]);
   // }
   //this.refs.child.triggerUpdate()
+
+  expenseUpdateNav = () => {
+    this.props.callbackFromApp();
+  };
   expenseUpdate = (amount, date, category, done) => {
     if (!done) {
       this.refs.child.triggerUpdate(amount, date, category);
@@ -153,7 +156,6 @@ class Main extends Component {
       localStorage.getItem("eCard") === "false"
     ) {
       var lst = JSON.parse(localStorage.getItem("statistics"));
-      console.log("stats existtttttttttt");
       this.setState({ totExp: lst[0], expCat: lst[1] }, () => {
         console.log("here");
         console.log(this.state.totExp);
@@ -165,8 +167,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log("totexppppppppppppppppp");
-    console.log(this.state.totExp);
     return (
       <div
         style={{
@@ -184,6 +184,7 @@ class Main extends Component {
           func1={this.expenseCallBack}
           func2={this.categoryCallBack}
           func3={this.expenseUpdate}
+          func4={this.expenseUpdateNav}
           user={this.state.currentUser}
         />
       </div>
@@ -191,11 +192,8 @@ class Main extends Component {
   }
 }
 
-function Switcher({ totExp, expCat, eoc, func1, func2, func3, user }) {
-  console.log("abc");
-  console.log(user);
+function Switcher({ totExp, expCat, eoc, func1, func2, func3, func4, user }) {
   if (eoc === true) {
-    console.log("cda");
     return (
       <AddExpense
         totExp={totExp}
@@ -203,6 +201,7 @@ function Switcher({ totExp, expCat, eoc, func1, func2, func3, user }) {
         username={user}
         callbackFromParent={func1}
         informUpdate={func3}
+        informNav={func4}
       />
     );
   } else {

@@ -11,13 +11,28 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   //this.childMain = React.createRef();
-  // }
-  // tellMain() {
-  //   this.mainChild.current.expenseUpdate(0, "", "", false, true);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      navStateMain: true,
+      navStateExpense: true,
+    };
+    this.tellNavExpense = this.tellNavExpense.bind(this);
+    this.tellNavMain = this.tellNavMain.bind(this);
+  }
+
+  tellNavExpense() {
+    this.setState({
+      navStateExpense: !this.state.navStateExpense,
+    });
+  }
+
+  tellNavMain() {
+    this.setState({
+      navStateMain: !this.state.navStateMain,
+    });
+  }
+
   render() {
     return (
       <Router>
@@ -41,8 +56,8 @@ class App extends React.Component {
                 if (typeof props.location.state != "undefined") {
                   return (
                     <div>
-                      <NavBar {...props} />
-                      <Main {...props} />
+                      <NavBar navState={this.state.navStateMain} {...props} />
+                      <Main callbackFromApp={this.tellNavMain} {...props} />
                     </div>
                   );
                 } else {
@@ -72,8 +87,14 @@ class App extends React.Component {
                 if (typeof props.location.state != "undefined") {
                   return (
                     <div>
-                      <NavBar {...props} />
-                      <ExpenseList callbackFromApp={this.tellMain} {...props} />
+                      <NavBar
+                        navState={this.state.navStateExpense}
+                        {...props}
+                      />
+                      <ExpenseList
+                        callbackFromApp={this.tellNavExpense}
+                        {...props}
+                      />
                     </div>
                   );
                 } else {
