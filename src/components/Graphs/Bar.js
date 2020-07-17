@@ -57,7 +57,6 @@ export default class Example extends React.Component {
       for (i = 0; i < newData.length; i++) {
         if (monthToAdd === newData[i].name) {
           newData[i].value += amount;
-          console.log("found");
         }
       }
     }
@@ -78,7 +77,6 @@ export default class Example extends React.Component {
     })
       .then((response) => response.json())
       .then((resData) => {
-        console.log(resData);
         let tableContents = [];
         var sum = 0;
         for (var key in resData) {
@@ -88,7 +86,6 @@ export default class Example extends React.Component {
             value: resData[key],
           });
         }
-        console.log(tableContents);
         localStorage.setItem("barVal", JSON.stringify(tableContents));
         this.setState({ data: tableContents }, () => {
           localStorage.setItem("ghState", JSON.stringify(sum));

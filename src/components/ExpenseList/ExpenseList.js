@@ -17,12 +17,10 @@ class ExpenseList extends React.Component {
       data: [],
       currentUser: props.location.state.name,
     };
-    console.log(props.location.state);
   }
 
   informNav() {
     this.props.callbackFromApp();
-    console.log("informin");
   }
 
   componentDidMount() {
@@ -69,7 +67,6 @@ class ExpenseList extends React.Component {
           localStorage.setItem("eList", "false");
           this.setState({ data: tableContents });
           this.setState({ tableState: this.state.data.length });
-          console.log(this.state.tableState);
         });
     }
   }
@@ -148,22 +145,24 @@ class ExpenseList extends React.Component {
                               );
                             }
                           );
-                          fetch("https://upper-inukshuk-26953.herokuapp.com/expense_edit", {
-                            method: "post",
-                            headers: { "Content-type": "application/json" },
-                            body: JSON.stringify({
-                              username: this.state.currentUser,
-                              id: oldData.id,
-                              date: newData.dateOfExpense,
-                              amount: newData.amount,
-                              category: newData.category,
-                              description: newData.description,
-                            }),
-                          })
+                          fetch(
+                            "https://upper-inukshuk-26953.herokuapp.com/expense_edit",
+                            {
+                              method: "post",
+                              headers: { "Content-type": "application/json" },
+                              body: JSON.stringify({
+                                username: this.state.currentUser,
+                                id: oldData.id,
+                                date: newData.dateOfExpense,
+                                amount: newData.amount,
+                                category: newData.category,
+                                description: newData.description,
+                              }),
+                            }
+                          )
                             .then((response) => response.text())
                             .then((responseText) => {
                               this.informNav();
-                              console.log(responseText);
                             });
                         }
                       }
@@ -205,13 +204,16 @@ class ExpenseList extends React.Component {
                         }
                       );
 
-                      fetch("https://upper-inukshuk-26953.herokuapp.com/expense_delete", {
-                        method: "post",
-                        headers: { "Content-type": "application/json" },
-                        body: JSON.stringify({
-                          id: oldData.id,
-                        }),
-                      })
+                      fetch(
+                        "https://upper-inukshuk-26953.herokuapp.com/expense_delete",
+                        {
+                          method: "post",
+                          headers: { "Content-type": "application/json" },
+                          body: JSON.stringify({
+                            id: oldData.id,
+                          }),
+                        }
+                      )
                         .then((response) => response.text())
                         .then((responseText) => {
                           this.informNav();

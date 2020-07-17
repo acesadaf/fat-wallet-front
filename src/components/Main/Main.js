@@ -13,7 +13,6 @@ class Main extends Component {
       expCat: "",
     };
     //this.child = React.createRef();
-    console.log(props.location.state);
     this.refreshCards = this.refreshCards.bind(this);
     this.fetchCards = this.fetchCards.bind(this);
   }
@@ -156,10 +155,7 @@ class Main extends Component {
       localStorage.getItem("eCard") === "false"
     ) {
       var lst = JSON.parse(localStorage.getItem("statistics"));
-      this.setState({ totExp: lst[0], expCat: lst[1] }, () => {
-        console.log("here");
-        console.log(this.state.totExp);
-      });
+      this.setState({ totExp: lst[0], expCat: lst[1] }, () => {});
     } else {
       this.fetchCards();
       localStorage.setItem("eCard", "false");

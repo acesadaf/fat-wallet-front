@@ -24,9 +24,6 @@ class Signin extends Component {
       localStorage.setItem("auth", "false");
     }
 
-    console.log("wazza");
-    console.log(localStorage.getItem("auth"));
-
     this.handleChange = this.handleChange.bind(this);
     this.conditionalCSS = this.conditionalCSS.bind(this);
     this.handleLogin = this.handleLogin.bind(this);

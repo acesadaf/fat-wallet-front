@@ -16,7 +16,6 @@ class AddExpense extends React.Component {
     this.newstring = `${year}${separator}${
       month < 10 ? `0${month}` : `${month}`
     }${separator}${date}`;
-    console.log(this.newstring);
     this.state = {
       name: "",
       amount: 0,
@@ -61,7 +60,6 @@ class AddExpense extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
     this.setState({ added: 0 });
   }
 
@@ -133,7 +131,9 @@ class AddExpense extends React.Component {
         this.state.added = 0;
 
         this.setState({ displayText: responseText });
-        setTimeout(() => {  this.setState({ displayText: "" })}, 2000);
+        setTimeout(() => {
+          this.setState({ displayText: "" });
+        }, 2000);
 
         //this.refs.stat.refresh(this.state.amount);
         // this.props.informUpdate(
@@ -141,7 +141,6 @@ class AddExpense extends React.Component {
         //   this.state.date,
         //   this.state.category
         // );
-
       });
   }
 

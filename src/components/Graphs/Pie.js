@@ -42,16 +42,18 @@ export default class Example extends React.Component {
   }
 
   fetchRefresh() {
-    fetch("https://upper-inukshuk-26953.herokuapp.com/category_wise_user_data", {
-      method: "post",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        username: this.state.currentUser,
-      }),
-    })
+    fetch(
+      "https://upper-inukshuk-26953.herokuapp.com/category_wise_user_data",
+      {
+        method: "post",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          username: this.state.currentUser,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((resData) => {
-        console.log(resData);
         let tableContents = [];
         var sum = 0;
         for (var key in resData) {
@@ -61,7 +63,6 @@ export default class Example extends React.Component {
             value: resData[key],
           });
         }
-        console.log(tableContents);
         localStorage.setItem("pieVal", JSON.stringify(tableContents));
         this.setState({ data: tableContents }, () => {
           localStorage.setItem("ghState", JSON.stringify(sum));
@@ -75,7 +76,6 @@ export default class Example extends React.Component {
   }
 
   componentDidMount() {
-    console.log("im mounting");
     if (
       localStorage.getItem("pieVal") !== null &&
       localStorage.getItem("ePie") === "false"

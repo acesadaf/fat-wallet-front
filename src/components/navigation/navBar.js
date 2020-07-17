@@ -5,7 +5,6 @@ import "bootstrap/dist/js/bootstrap.bundle";
 
 class navBar extends React.Component {
   constructor(props) {
-    console.log("woot");
     super(props);
     this.state = {
       remove: !this.props.navState,
@@ -18,7 +17,6 @@ class navBar extends React.Component {
     this.navLinkDisabled = "nav-link";
   }
   componentWillReceiveProps(props) {
-    console.log("changed");
     console.log(props, this.props);
 
     if (this.props.navState != props.navState) {

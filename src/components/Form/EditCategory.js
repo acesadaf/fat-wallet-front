@@ -8,7 +8,6 @@ class EditCategory extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.printData = this.printData.bind(this);
     this.state = {
       columns: [{ title: "Category", field: "category" }],
       data: [],
@@ -17,17 +16,11 @@ class EditCategory extends React.Component {
     };
   }
 
-  printData(data) {
-    console.log(data);
-  }
-
   handleClick(event) {
     this.props.callbackFromParent(true);
   }
 
   componentWillMount() {
-    console.log("mounting...");
-
     fetch("https://upper-inukshuk-26953.herokuapp.com/category_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
@@ -62,15 +55,17 @@ class EditCategory extends React.Component {
   }
 
   render() {
-    if (this.state.data.length > 0) {
+    if (this.state.data.length >= 0) {
       return (
-        <div style={{ width: "80vw", maxWidth: "700px"}}>
-          <Stats
-            totExp={this.props.totExp}
-            expCat={this.props.expCat}
-          />
+        <div style={{ width: "80vw", maxWidth: "700px" }}>
+          <Stats totExp={this.props.totExp} expCat={this.props.expCat} />
           <button
-            style={{ background: "#FFAC9E", color: "black", border: "#FFAC9E", marginBottom: "2vh"}}
+            style={{
+              background: "#FFAC9E",
+              color: "black",
+              border: "#FFAC9E",
+              marginBottom: "2vh",
+            }}
             type="button"
             className="btn btn-warning btn-block "
             onClick={this.handleClick}
@@ -84,7 +79,7 @@ class EditCategory extends React.Component {
             ></link>
             <MaterialTable
               style={{
-                background:"#FFAC9E",
+                background: "#FFAC9E",
                 marginBottom: "2vh",
               }}
               title="Categories"
@@ -105,15 +100,18 @@ class EditCategory extends React.Component {
                           data[data.indexOf(oldData)] = newData;
                           return { ...prevState, data };
                         });
-                        fetch("https://upper-inukshuk-26953.herokuapp.com/category_edit", {
-                          method: "post",
-                          headers: { "Content-type": "application/json" },
-                          body: JSON.stringify({
-                            name: this.state.currentUser,
-                            old: oldData.category,
-                            new: newData.category,
-                          }),
-                        })
+                        fetch(
+                          "https://upper-inukshuk-26953.herokuapp.com/category_edit",
+                          {
+                            method: "post",
+                            headers: { "Content-type": "application/json" },
+                            body: JSON.stringify({
+                              name: this.state.currentUser,
+                              old: oldData.category,
+                              new: newData.category,
+                            }),
+                          }
+                        )
                           .then((response) => response.text())
                           .then((responseText) => {
                             console.log(responseText);
@@ -129,17 +127,19 @@ class EditCategory extends React.Component {
                       this.setState((prevState) => {
                         const data = [...prevState.data];
                         data.splice(data.indexOf(oldData), 1);
-                        console.log(oldData.category);
                         return { ...prevState, data };
                       });
-                      fetch("https://upper-inukshuk-26953.herokuapp.com/category_delete", {
-                        method: "post",
-                        headers: { "Content-type": "application/json" },
-                        body: JSON.stringify({
-                          name: this.state.currentUser,
-                          category: oldData.category,
-                        }),
-                      })
+                      fetch(
+                        "https://upper-inukshuk-26953.herokuapp.com/category_delete",
+                        {
+                          method: "post",
+                          headers: { "Content-type": "application/json" },
+                          body: JSON.stringify({
+                            name: this.state.currentUser,
+                            category: oldData.category,
+                          }),
+                        }
+                      )
                         .then((response) => response.text())
                         .then((responseText) => {
                           console.log(responseText);
@@ -152,14 +152,17 @@ class EditCategory extends React.Component {
                   new Promise((resolve) => {
                     setTimeout(() => {
                       resolve();
-                      fetch("https://upper-inukshuk-26953.herokuapp.com/category_submit", {
-                        method: "post",
-                        headers: { "Content-type": "application/json" },
-                        body: JSON.stringify({
-                          name: this.state.currentUser,
-                          category: newData.category,
-                        }),
-                      })
+                      fetch(
+                        "https://upper-inukshuk-26953.herokuapp.com/category_submit",
+                        {
+                          method: "post",
+                          headers: { "Content-type": "application/json" },
+                          body: JSON.stringify({
+                            name: this.state.currentUser,
+                            category: newData.category,
+                          }),
+                        }
+                      )
                         .then((response) => response.text())
                         .then((responseText) => {
                           if (responseText == "Category Added") {
@@ -187,16 +190,19 @@ class EditCategory extends React.Component {
       );
     } else {
       return (
-        <div style={{ width: "80vw", maxWidth: "700px", textAlign: 'center'}}>
-          <Spinner 
-          animation="border"
-          role="status"
-          style={{ textAlign: "center", marginTop: "50%", marginBottom: "30%" }}
-        >
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <div style={{ width: "80vw", maxWidth: "700px", textAlign: "center" }}>
+          <Spinner
+            animation="border"
+            role="status"
+            style={{
+              textAlign: "center",
+              marginTop: "50%",
+              marginBottom: "30%",
+            }}
+          >
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         </div>
-        
       );
     }
   }
