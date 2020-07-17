@@ -207,12 +207,14 @@ class Signin extends Component {
           <div class="col-md-7 col-sm-7">
             <div>
               <form class="form-padding">
-                <label
+                {/* <label
                   className="lh-copy white f5"
                   style={{ textTransform: "uppercase" }}
                 >
                   {this.state.displayText}
-                </label>
+                </label> */}
+
+                <Label statement = {this.state.displayText}/>
                 <div class="form-group">
                   <label id="userName">User Name</label>
                   <input
@@ -305,6 +307,31 @@ class Signin extends Component {
           </div>
         </div>
       </div>
+    );
+  }
+}
+
+
+function Label(statement){
+  if (statement.statement === ""){
+    return(
+        <div></div>
+    );
+  }
+  else{
+    return (
+      <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                <i class="start-icon fa fa-times-circle faa-flash animated"></i>
+                <strong class="font__weight-semibold">Oh snap!</strong> {statement.statement}
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
     );
   }
 }

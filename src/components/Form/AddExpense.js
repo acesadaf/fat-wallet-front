@@ -4,6 +4,9 @@ import "./AddExpense.css";
 //import "../checkMark.css";
 import { InputGroupAppend } from "react-bootstrap/InputGroup";
 import Stats from "./Stats";
+import 'font-awesome/css/font-awesome.min.css';
+import '../../fa-animation.css';
+
 
 class AddExpense extends React.Component {
   constructor(props) {
@@ -192,16 +195,7 @@ class AddExpense extends React.Component {
             Key in your new expense
           </h3>
 
-          <label
-            className="lh-copy white f5 center"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              textTransform: "uppercase",
-            }}
-          >
-            {this.state.displayText}
-          </label>
+          <Label statement = {this.state.displayText}/>
 
           <div className="form-group">
             <label id="name">Name</label>
@@ -237,7 +231,7 @@ class AddExpense extends React.Component {
           >
             <div className="form-group" style={{ width: "100%" }}>
               <label id="date" for="date">
-                Date of Expenditure:{" "}
+                Incurred Date:{" "}
               </label>
               <br />
               <input
@@ -327,6 +321,48 @@ class AddExpense extends React.Component {
           </button>
         </form>
       </div>
+    );
+  }
+}
+
+function Label(statement){
+  if (statement.statement === ""){
+    return(
+        <div></div>
+    );
+  }
+  else if(statement.statement === "Expense Added"){
+    return (
+      <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
+              <i class="start-icon fa fa-check-circle faa-tada animated"></i>
+              <strong>Well Done!</strong> Your expense has been added.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    );
+  }
+  else{
+    return (
+      <section>
+      <div class="square_box box_three"></div>
+      <div class="square_box box_four"></div>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                <i class="start-icon fa fa-times-circle faa-flash animated"></i>
+                <strong class="font__weight-semibold">Oh snap!</strong> Change a few things up and try submitting again.
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
     );
   }
 }

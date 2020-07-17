@@ -11,6 +11,8 @@
     "apexcharts": "^3.19.2",
     "bootstrap": "^4.5.0",
     "canvasjs": "^1.8.3",
+    "font-awesome": "^4.7.0",
+    "font-awesome-animation": "^0.2.1",
     "jquery": "^3.5.1",
     "material-table": "^1.62.0",
     "material-ui": "^0.20.2",
