@@ -20,6 +20,11 @@ class ExpenseList extends React.Component {
     console.log(props.location.state);
   }
 
+  informNav() {
+    this.props.callbackFromApp();
+    console.log("informin");
+  }
+
   componentDidMount() {
     //console.log("eList checking...", localStorage.getItem("eList"));
     if (
@@ -92,6 +97,7 @@ class ExpenseList extends React.Component {
               editable={{
                 onRowUpdate: (newData, oldData) =>
                   new Promise((resolve) => {
+                    this.informNav();
                     var lst = JSON.parse(localStorage.getItem("statistics"));
                     var newAmount =
                       parseFloat(lst[0]) + (oldData.amount - newData.amount);
@@ -156,6 +162,7 @@ class ExpenseList extends React.Component {
                           })
                             .then((response) => response.text())
                             .then((responseText) => {
+                              this.informNav();
                               console.log(responseText);
                             });
                         }
@@ -164,6 +171,7 @@ class ExpenseList extends React.Component {
                   }),
                 onRowDelete: (oldData) =>
                   new Promise((resolve) => {
+                    this.informNav();
                     var lst = JSON.parse(localStorage.getItem("statistics"));
                     var newAmount = parseFloat(lst[0]) - oldData.amount;
                     var statistics = [];
@@ -206,6 +214,7 @@ class ExpenseList extends React.Component {
                       })
                         .then((response) => response.text())
                         .then((responseText) => {
+                          this.informNav();
                           console.log(responseText);
                         });
                     }, 600);

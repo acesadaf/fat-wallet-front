@@ -53,7 +53,6 @@ class AddExpense extends React.Component {
           tableContents.push(resData[i].category);
         }
         this.setState({ allcategories: tableContents });
-        console.log(this.state.allcategories);
       });
   }
 
@@ -62,7 +61,6 @@ class AddExpense extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("receivinggg");
     console.log(newProps);
     this.setState({ added: 0 });
   }
@@ -100,6 +98,7 @@ class AddExpense extends React.Component {
       description: "",
     });
     event.preventDefault();
+    this.props.informNav();
     this.props.informUpdate(
       this.state.amount,
       this.state.date,
@@ -130,7 +129,9 @@ class AddExpense extends React.Component {
           this.state.category,
           true
         );
+        this.props.informNav();
         this.state.added = 0;
+
         this.setState({ displayText: responseText });
         setTimeout(() => {  this.setState({ displayText: "" })}, 2000);
 
@@ -140,6 +141,7 @@ class AddExpense extends React.Component {
         //   this.state.date,
         //   this.state.category
         // );
+
       });
   }
 

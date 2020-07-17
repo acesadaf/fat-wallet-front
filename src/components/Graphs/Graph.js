@@ -118,7 +118,6 @@ function PrintLabel(user) {
     ["Good Night, ", 21, 24],
   ];
   var hour = new Date().getHours();
-  console.log(hour);
   var i;
 
   var firstName = user.user;

@@ -51,8 +51,6 @@ export default class Example extends React.Component {
       counter -= 1;
     }
 
-    console.log(monthToAdd);
-
     if (found) {
       var newData = this.state.data;
       var i;
@@ -63,10 +61,8 @@ export default class Example extends React.Component {
         }
       }
     }
-    console.log(newData);
     localStorage.setItem("barVal", JSON.stringify(newData));
     var table = JSON.parse(localStorage.getItem("barVal"));
-    console.log(table);
     this.setState({ data: table });
   }
 
@@ -102,12 +98,10 @@ export default class Example extends React.Component {
   }
 
   componentDidMount() {
-    console.log("ebar checking", localStorage.getItem("eBar"));
     if (
       localStorage.getItem("barVal") !== null &&
       localStorage.getItem("eBar") === "false"
     ) {
-      console.log("LOKUL ISHTORAGE");
       var table = JSON.parse(localStorage.getItem("barVal"));
       var length = JSON.parse(localStorage.getItem("ghState"));
       console.log(length);
