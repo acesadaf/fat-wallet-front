@@ -35,7 +35,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div>
           <link
             href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
