@@ -4,7 +4,7 @@ import Main from "./components/Main/Main";
 import Signin from "./components/Signin/Signin";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Redirect,
   Switch,
   Route,
