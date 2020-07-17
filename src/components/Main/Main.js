@@ -125,7 +125,7 @@ class Main extends Component {
 
   fetchCards() {
     console.log("inside stats");
-    fetch("http://127.0.0.1:8000/stats_data", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/stats_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

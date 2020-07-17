@@ -28,7 +28,7 @@ class EditCategory extends React.Component {
   componentWillMount() {
     console.log("mounting...");
 
-    fetch("http://127.0.0.1:8000/category_data", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/category_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -105,7 +105,7 @@ class EditCategory extends React.Component {
                           data[data.indexOf(oldData)] = newData;
                           return { ...prevState, data };
                         });
-                        fetch("http://127.0.0.1:8000/category_edit", {
+                        fetch("https://upper-inukshuk-26953.herokuapp.com/category_edit", {
                           method: "post",
                           headers: { "Content-type": "application/json" },
                           body: JSON.stringify({
@@ -132,7 +132,7 @@ class EditCategory extends React.Component {
                         console.log(oldData.category);
                         return { ...prevState, data };
                       });
-                      fetch("http://127.0.0.1:8000/category_delete", {
+                      fetch("https://upper-inukshuk-26953.herokuapp.com/category_delete", {
                         method: "post",
                         headers: { "Content-type": "application/json" },
                         body: JSON.stringify({
@@ -152,7 +152,7 @@ class EditCategory extends React.Component {
                   new Promise((resolve) => {
                     setTimeout(() => {
                       resolve();
-                      fetch("http://127.0.0.1:8000/category_submit", {
+                      fetch("https://upper-inukshuk-26953.herokuapp.com/category_submit", {
                         method: "post",
                         headers: { "Content-type": "application/json" },
                         body: JSON.stringify({

@@ -42,7 +42,7 @@ export default class Example extends React.Component {
   }
 
   fetchRefresh() {
-    fetch("http://127.0.0.1:8000/category_wise_user_data", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/category_wise_user_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

@@ -44,7 +44,7 @@ class Graph extends React.Component {
         choice: lastChoice,
       });
     }
-    const response = await fetch("http://127.0.0.1:8000/give_name", {
+    const response = await fetch("https://upper-inukshuk-26953.herokuapp.com/give_name", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

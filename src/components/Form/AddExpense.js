@@ -38,7 +38,7 @@ class AddExpense extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/category_data", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/category_data", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -109,8 +109,7 @@ class AddExpense extends React.Component {
     localStorage.setItem("ghState", "1");
     this.setState({ added: parseFloat(this.state.amount) });
 
-    // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
-    fetch("http://127.0.0.1:8000/expense_submit", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/expense_submit", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -132,6 +131,8 @@ class AddExpense extends React.Component {
           true
         );
         this.state.added = 0;
+        this.setState({ displayText: responseText });
+        setTimeout(() => {  this.setState({ displayText: "" })}, 2000);
 
         //this.refs.stat.refresh(this.state.amount);
         // this.props.informUpdate(

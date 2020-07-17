@@ -61,8 +61,7 @@ class Signin extends Component {
     }
 
     console.log(this.state.userName);
-    // fetch('http://friendly-eds-52406.herokuapp.com/sign_in',{
-    fetch("http://127.0.0.1:8000/sign_in", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/sign_in", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -121,8 +120,7 @@ class Signin extends Component {
       return;
     }
 
-    // fetch('http://friendly-eds-52406.herokuapp.com/add_user',{
-    fetch("http://127.0.0.1:8000/add_user", {
+    fetch("https://upper-inukshuk-26953.herokuapp.com/add_user", {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

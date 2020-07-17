@@ -31,7 +31,7 @@ class ExpenseList extends React.Component {
       this.setState({ data: table });
       this.setState({ tableState: len });
     } else {
-      fetch("http://127.0.0.1:8000/expense_data", {
+      fetch("https://upper-inukshuk-26953.herokuapp.com/expense_data", {
         method: "post",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -142,7 +142,7 @@ class ExpenseList extends React.Component {
                               );
                             }
                           );
-                          fetch("http://127.0.0.1:8000/expense_edit", {
+                          fetch("https://upper-inukshuk-26953.herokuapp.com/expense_edit", {
                             method: "post",
                             headers: { "Content-type": "application/json" },
                             body: JSON.stringify({
@@ -197,7 +197,7 @@ class ExpenseList extends React.Component {
                         }
                       );
 
-                      fetch("http://127.0.0.1:8000/expense_delete", {
+                      fetch("https://upper-inukshuk-26953.herokuapp.com/expense_delete", {
                         method: "post",
                         headers: { "Content-type": "application/json" },
                         body: JSON.stringify({
