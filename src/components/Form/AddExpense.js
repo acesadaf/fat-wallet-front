@@ -1,6 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import "./AddExpense.css";
+//import "../checkMark.css";
 import { InputGroupAppend } from "react-bootstrap/InputGroup";
 import Stats from "./Stats";
 
@@ -133,7 +134,7 @@ class AddExpense extends React.Component {
         this.setState({ displayText: responseText });
         setTimeout(() => {
           this.setState({ displayText: "" });
-        }, 2000);
+        }, 4000);
 
         //this.refs.stat.refresh(this.state.amount);
         // this.props.informUpdate(
@@ -190,6 +191,7 @@ class AddExpense extends React.Component {
           <h3 style={{ display: "flex", justifyContent: "center" }}>
             Key in your new expense
           </h3>
+
           <label
             className="lh-copy white f5 center"
             style={{
@@ -200,6 +202,7 @@ class AddExpense extends React.Component {
           >
             {this.state.displayText}
           </label>
+
           <div className="form-group">
             <label id="name">Name</label>
             <input

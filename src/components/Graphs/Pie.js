@@ -136,7 +136,7 @@ export default class Example extends React.Component {
               display: "flex",
               width: "100%",
               justifyContent: "center",
-              textTransform: "uppercase",
+              //textTransform: "uppercase",
               padding: "5vh",
               fontSize: "3vh",
             }}

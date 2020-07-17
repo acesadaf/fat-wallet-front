@@ -162,13 +162,13 @@ export default class Example extends React.Component {
             style={{
               display: "flex",
               justifyContent: "center",
-              textTransform: "uppercase",
+              //textTransform: "uppercase",
               padding: "5vh",
               width: "100%",
               fontSize: "3vh",
             }}
           >
-            No Data to show
+            No data to show from the last five months.
           </label>
         </div>
       );
