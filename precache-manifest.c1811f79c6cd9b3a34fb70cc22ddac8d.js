@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6a61b0f88220d384a52f3ae51963ca30",
+    "revision": "dde92b44820ff39be95297647c76646d",
     "url": "/fat-wallet-front/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fat-wallet-front/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "ccb93350ca728a2627e2",
+    "revision": "b16d983ab0bf84aae73e",
     "url": "/fat-wallet-front/static/css/main.ea20007d.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fat-wallet-front/static/js/2.b9c07be3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ccb93350ca728a2627e2",
-    "url": "/fat-wallet-front/static/js/main.44b913b9.chunk.js"
+    "revision": "b16d983ab0bf84aae73e",
+    "url": "/fat-wallet-front/static/js/main.1f5ff2a3.chunk.js"
   },
   {
     "revision": "a5e07bbde16ec1282595",

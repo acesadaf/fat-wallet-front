@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fat-wallet-front/static/css/main.ea20007d.chunk.css",
-    "main.js": "/fat-wallet-front/static/js/main.44b913b9.chunk.js",
-    "main.js.map": "/fat-wallet-front/static/js/main.44b913b9.chunk.js.map",
+    "main.js": "/fat-wallet-front/static/js/main.1f5ff2a3.chunk.js",
+    "main.js.map": "/fat-wallet-front/static/js/main.1f5ff2a3.chunk.js.map",
     "runtime-main.js": "/fat-wallet-front/static/js/runtime-main.47efe8b7.js",
     "runtime-main.js.map": "/fat-wallet-front/static/js/runtime-main.47efe8b7.js.map",
     "static/css/2.af3c1da9.chunk.css": "/fat-wallet-front/static/css/2.af3c1da9.chunk.css",
     "static/js/2.b9c07be3.chunk.js": "/fat-wallet-front/static/js/2.b9c07be3.chunk.js",
     "static/js/2.b9c07be3.chunk.js.map": "/fat-wallet-front/static/js/2.b9c07be3.chunk.js.map",
     "index.html": "/fat-wallet-front/index.html",
-    "precache-manifest.b48ca97e9e1d82b59587cc642eac7dc1.js": "/fat-wallet-front/precache-manifest.b48ca97e9e1d82b59587cc642eac7dc1.js",
+    "precache-manifest.c1811f79c6cd9b3a34fb70cc22ddac8d.js": "/fat-wallet-front/precache-manifest.c1811f79c6cd9b3a34fb70cc22ddac8d.js",
     "service-worker.js": "/fat-wallet-front/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/fat-wallet-front/static/css/2.af3c1da9.chunk.css.map",
     "static/css/main.ea20007d.chunk.css.map": "/fat-wallet-front/static/css/main.ea20007d.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.af3c1da9.chunk.css",
     "static/js/2.b9c07be3.chunk.js",
     "static/css/main.ea20007d.chunk.css",
-    "static/js/main.44b913b9.chunk.js"
+    "static/js/main.1f5ff2a3.chunk.js"
   ]
 }
