@@ -1,27 +1,28 @@
 {
   "files": {
-    "main.css": "/fat-wallet-front/static/css/main.ea20007d.chunk.css",
-    "main.js": "/fat-wallet-front/static/js/main.7da0c377.chunk.js",
-    "main.js.map": "/fat-wallet-front/static/js/main.7da0c377.chunk.js.map",
+    "main.css": "/fat-wallet-front/static/css/main.a886248d.chunk.css",
+    "main.js": "/fat-wallet-front/static/js/main.ea766192.chunk.js",
+    "main.js.map": "/fat-wallet-front/static/js/main.ea766192.chunk.js.map",
     "runtime-main.js": "/fat-wallet-front/static/js/runtime-main.47efe8b7.js",
     "runtime-main.js.map": "/fat-wallet-front/static/js/runtime-main.47efe8b7.js.map",
-    "static/css/2.af3c1da9.chunk.css": "/fat-wallet-front/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.41a0422b.chunk.js": "/fat-wallet-front/static/js/2.41a0422b.chunk.js",
-    "static/js/2.41a0422b.chunk.js.map": "/fat-wallet-front/static/js/2.41a0422b.chunk.js.map",
+    "static/css/2.53b6c10d.chunk.css": "/fat-wallet-front/static/css/2.53b6c10d.chunk.css",
+    "static/js/2.dc3f4c2b.chunk.js": "/fat-wallet-front/static/js/2.dc3f4c2b.chunk.js",
+    "static/js/2.dc3f4c2b.chunk.js.map": "/fat-wallet-front/static/js/2.dc3f4c2b.chunk.js.map",
     "index.html": "/fat-wallet-front/index.html",
-    "precache-manifest.e4c40a011b2c88f122be9682f2aaa7ae.js": "/fat-wallet-front/precache-manifest.e4c40a011b2c88f122be9682f2aaa7ae.js",
+    "precache-manifest.77e52c69cf8dbc7b6ab94e1de1e5161f.js": "/fat-wallet-front/precache-manifest.77e52c69cf8dbc7b6ab94e1de1e5161f.js",
     "service-worker.js": "/fat-wallet-front/service-worker.js",
-    "static/css/2.af3c1da9.chunk.css.map": "/fat-wallet-front/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.ea20007d.chunk.css.map": "/fat-wallet-front/static/css/main.ea20007d.chunk.css.map",
-    "static/js/2.41a0422b.chunk.js.LICENSE.txt": "/fat-wallet-front/static/js/2.41a0422b.chunk.js.LICENSE.txt",
+    "static/css/2.53b6c10d.chunk.css.map": "/fat-wallet-front/static/css/2.53b6c10d.chunk.css.map",
+    "static/css/main.a886248d.chunk.css.map": "/fat-wallet-front/static/css/main.a886248d.chunk.css.map",
+    "static/js/2.dc3f4c2b.chunk.js.LICENSE.txt": "/fat-wallet-front/static/js/2.dc3f4c2b.chunk.js.LICENSE.txt",
     "static/media/Wallet.png": "/fat-wallet-front/static/media/Wallet.317f2277.png",
-    "static/media/error.svg": "/fat-wallet-front/static/media/error.14609ef0.svg"
+    "static/media/error.svg": "/fat-wallet-front/static/media/error.14609ef0.svg",
+    "static/media/font-awesome.min.css": "/fat-wallet-front/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.47efe8b7.js",
-    "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.41a0422b.chunk.js",
-    "static/css/main.ea20007d.chunk.css",
-    "static/js/main.7da0c377.chunk.js"
+    "static/css/2.53b6c10d.chunk.css",
+    "static/js/2.dc3f4c2b.chunk.js",
+    "static/css/main.a886248d.chunk.css",
+    "static/js/main.ea766192.chunk.js"
   ]
 }
