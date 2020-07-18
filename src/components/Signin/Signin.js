@@ -77,6 +77,7 @@ class Signin extends Component {
           localStorage.setItem("ePie", "true");
           localStorage.setItem("eCard", "true");
           localStorage.setItem("eList", "true");
+          localStorage.setItem("firstTime", "true");
           this.setState({ redirect: "/home" });
         } else {
           this.setState({ displayText: responseText });
@@ -135,6 +136,8 @@ class Signin extends Component {
           localStorage.clear();
           localStorage.setItem("fatWalletUser", this.state.userName);
           localStorage.setItem("auth", "true");
+          localStorage.setItem("firstTime", "true");
+          localStorage.setItem("justReg", "true");
           console.log("here");
           this.setState({ redirect: "/home" });
         } else {
@@ -214,7 +217,7 @@ class Signin extends Component {
                   {this.state.displayText}
                 </label> */}
 
-                <Label statement = {this.state.displayText}/>
+                <Label statement={this.state.displayText} />
                 <div class="form-group">
                   <label id="userName">User Name</label>
                   <input
@@ -311,27 +314,28 @@ class Signin extends Component {
   }
 }
 
-
-function Label(statement){
-  if (statement.statement === ""){
-    return(
-        <div></div>
-    );
-  }
-  else{
+function Label(statement) {
+  if (statement.statement === "") {
+    return <div></div>;
+  } else {
     return (
       <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-              <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div
+                class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                role="alert"
+                data-brk-library="component__alert"
+              >
                 <i class="start-icon fa fa-times-circle faa-flash animated"></i>
-                <strong class="font__weight-semibold">Oh snap!</strong> {statement.statement}
+                <strong class="font__weight-semibold">Oh snap!</strong>{" "}
+                {statement.statement}
               </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     );
   }
 }
