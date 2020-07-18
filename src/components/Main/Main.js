@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Graph from "../Graphs/Graph";
 import AddExpense from "../Form/AddExpense";
 import EditCategory from "../Form/EditCategory";
+import "./splashScreen.css";
 
 class Main extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Main extends Component {
       currentUser: props.location.state.name,
       totExp: 0,
       expCat: "",
+      animate: true,
     };
     //this.child = React.createRef();
     this.refreshCards = this.refreshCards.bind(this);
@@ -163,28 +165,44 @@ class Main extends Component {
   }
 
   render() {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexdirection: "row",
-          justifyContent: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        <Graph ref="child" username={this.state.currentUser} />
-        <Switcher
-          totExp={this.state.totExp}
-          expCat={this.state.expCat}
-          eoc={this.state.expenseOrCategory}
-          func1={this.expenseCallBack}
-          func2={this.categoryCallBack}
-          func3={this.expenseUpdate}
-          func4={this.expenseUpdateNav}
-          user={this.state.currentUser}
-        />
-      </div>
-    );
+    var t;
+    if (localStorage.getItem("justReg") !== null) {
+      t = 2500;
+    } else {
+      t = 1500;
+    }
+    if (localStorage.getItem("firstTime") === "true") {
+      setTimeout(() => {
+        localStorage.setItem("firstTime", "false");
+        this.setState({
+          animate: !this.state.animate,
+        });
+      }, t);
+      return <LoadingMessage user={this.state.currentUser} />;
+    } else {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexdirection: "row",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <Graph ref="child" username={this.state.currentUser} />
+          <Switcher
+            totExp={this.state.totExp}
+            expCat={this.state.expCat}
+            eoc={this.state.expenseOrCategory}
+            func1={this.expenseCallBack}
+            func2={this.categoryCallBack}
+            func3={this.expenseUpdate}
+            func4={this.expenseUpdateNav}
+            user={this.state.currentUser}
+          />
+        </div>
+      );
+    }
   }
 }
 
@@ -208,6 +226,24 @@ function Switcher({ totExp, expCat, eoc, func1, func2, func3, func4, user }) {
         username={user}
         callbackFromParent={func2}
       />
+    );
+  }
+}
+
+function LoadingMessage({ user }) {
+  if (localStorage.getItem("justReg") !== null) {
+    return (
+      <div className="splash-screen">
+        <h1>Welcome to Fat Wallet, {user}!</h1>
+        <div className="loading-dot">.</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="splash-screen">
+        <h1>Welcome Back, {user}</h1>
+        <div className="loading-dot">.</div>
+      </div>
     );
   }
 }

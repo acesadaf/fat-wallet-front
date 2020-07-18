@@ -1,0 +1,31 @@
+.splash-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.splash-screen .loading-dot {
+  font-size: 100px;
+  margin-top: -10%;
+  margin-left: 50%;
+  position: relative;
+  animation: ease-in-out infinite alternate;
+  animation-name: run;
+  animation-duration: 1s;
+}
+
+@keyframes run {
+  0% {
+    left: -90px;
+    color: #eee;
+  }
+  50% {
+    color: #666;
+  }
+  100% {
+    left: 90px;
+    color: #eee;
+  }
+}
