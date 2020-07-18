@@ -1,7 +1,9 @@
 import moment from "moment";
 import { Spinner } from "react-bootstrap";
-import ReactLogo from "./error.svg";
 import "./Bar_Pie.css";
+import ReactLogo from "./error.svg";
+
+
 import {
   BarChart,
   Bar,
@@ -155,7 +157,7 @@ export default class Example extends React.Component {
       return (
         <div>
           <div>
-            <img class="center" src={ReactLogo} alt="React Logo" />
+            <img class="center scale-up-center"  src={ReactLogo} alt="React Logo" />
           </div>
           <label
             className="lh-copy white f5 center"

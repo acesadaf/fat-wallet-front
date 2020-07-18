@@ -3,6 +3,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MaterialTable from "material-table";
 import { Spinner } from "react-bootstrap";
 import Stats from "./Stats";
+import "./EditCategory.css";
 
 class EditCategory extends React.Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class EditCategory extends React.Component {
   render() {
     if (this.state.data.length >= 0) {
       return (
-        <div style={{ width: "80vw", maxWidth: "700px" }}>
+        <div style={{ width: "80vw", maxWidth: "700px" }} class="slide-up">
           <Stats totExp={this.props.totExp} expCat={this.props.expCat} />
           <button
             style={{

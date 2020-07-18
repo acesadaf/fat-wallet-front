@@ -3,6 +3,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MaterialTable from "material-table";
 import { Spinner } from "react-bootstrap";
 import "./ExpenseList.css";
+
 class ExpenseList extends React.Component {
   constructor(props) {
     super(props);
@@ -70,15 +71,20 @@ class ExpenseList extends React.Component {
         });
     }
   }
-
+  
   render() {
+
     if (this.state.tableState >= 0) {
       return (
         <div
           style={{
             padding: "5%",
           }}
+          class="slide-top"
         >
+
+
+
           <MuiThemeProvider>
             <link
               rel="stylesheet"
@@ -88,6 +94,7 @@ class ExpenseList extends React.Component {
               style={{
                 background: "#FFAC9E",
               }}
+              
               title="Expense History"
               columns={this.state.columns}
               data={this.state.data}

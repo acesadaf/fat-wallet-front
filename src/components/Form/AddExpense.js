@@ -6,6 +6,7 @@ import { InputGroupAppend } from "react-bootstrap/InputGroup";
 import Stats from "./Stats";
 import 'font-awesome/css/font-awesome.min.css';
 import '../../fa-animation.css';
+import "./EditCategory.css";
 
 
 class AddExpense extends React.Component {
@@ -31,7 +32,7 @@ class AddExpense extends React.Component {
       displayText: "",
       added: 0,
     };
-    this.selectedCat = "Choose an Option";
+    this.selectedCat = "Options";
     this.categories = ["Food", "Utilites", "Commute", "Entertainment"];
 
     this.handleClick = this.handleClick.bind(this);
@@ -182,6 +183,7 @@ class AddExpense extends React.Component {
             //border: "1px solid black",
           }}
           onSubmit={this.handleSubmit}
+          class = "slide-up"
         >
           <Stats
             ref="stat"
@@ -225,11 +227,14 @@ class AddExpense extends React.Component {
           <div
             style={{
               display: "flex",
-              flexdirection: "row",
+              flexDirection: "row",
+              flexWrap: "wrap",
               justifyContent: "space-around",
             }}
           >
-            <div className="form-group" style={{ width: "100%" }}>
+            <div className="form-group" 
+            style={{ width: "50%" }}
+            >
               <label id="date" for="date">
                 Incurred Date:{" "}
               </label>
@@ -243,7 +248,9 @@ class AddExpense extends React.Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div className="form-group" style={{ width: "100%" }}>
+            <div className="form-group" 
+            style={{ width: "50%" }}
+            >
               <label id="category">Purchase Category</label>
               <div
                 style={{
