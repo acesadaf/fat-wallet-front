@@ -357,9 +357,7 @@ function Label(statement){
   else{
     return (
       <section>
-      <div class="square_box box_three"></div>
-      <div class="square_box box_four"></div>
-      <div class="container mt-5">
+      <div class="container">
         <div class="row">
           <div class="col-sm-12">
               <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
