@@ -34,7 +34,6 @@ class App extends React.Component {
   }
 
   render() {
-  
     return (
       <Router>
         <div>
@@ -44,7 +43,26 @@ class App extends React.Component {
             type="text/css"
           ></link>
           <Switch>
-            <Route path="/" exact component={Signin} />
+            <Route
+              path="/"
+              exact
+              render={(props) => {
+                if (localStorage.getItem("fatWalletUser") !== null)
+                  return (
+                    <Redirect
+                      to={{
+                        pathname: "/home",
+                        state: {
+                          name: localStorage.getItem("fatWalletUser"),
+                        },
+                      }}
+                    />
+                  );
+                else {
+                  return <Signin {...props} />;
+                }
+              }}
+            />
             <Route
               path="/home"
               render={(props) => {

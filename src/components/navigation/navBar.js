@@ -140,6 +140,7 @@ class navBar extends React.Component {
                   state: { signedOut: true },
                 }}
                 onClick={(event) => {
+                  localStorage.clear();
                   this.state.remove === true
                     ? this.prevent(event)
                     : this.allow();

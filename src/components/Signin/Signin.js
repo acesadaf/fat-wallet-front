@@ -7,11 +7,13 @@ class Signin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userName: "",
+      password: "",
+      regUserName: "",
       email: "",
       firstName: "",
       lastName: "",
-      userName: "",
-      password: "",
+      regPassword: "",
       cpassword: "",
       loginOrRegister: true,
       displayText: "",
@@ -33,13 +35,13 @@ class Signin extends Component {
   conditionalCSS(choice) {
     var index = 0;
     Object.keys(this.state).map((i) => {
-      if (index <= 6) {
+      if (index <= 8) {
         if (this.state[i] === "") {
           if (choice === 1) {
-            document.getElementById(i).style.color = "red";
+            if (index >= 2) document.getElementById(i).style.color = "red";
           } else if (choice === 2) {
             console.log("-----------------------------");
-            if (index === 3 || index === 4) {
+            if (index === 0 || index === 1) {
               document.getElementById(i).style.color = "red";
             }
           }
@@ -87,16 +89,16 @@ class Signin extends Component {
   }
 
   handleRegister(event) {
-    console.log(this.state.userName);
-    const p = this.state.password;
+    console.log(this.state.regUserName);
+    const p = this.state.regPassword;
     const cp = this.state.cpassword;
 
     if (
       this.state.email === "" ||
       this.state.firstName === "" ||
       this.state.lastName === "" ||
-      this.state.userName === "" ||
-      this.state.password === "" ||
+      this.state.regUserName === "" ||
+      this.state.regPassword === "" ||
       this.state.cpassword === ""
     ) {
       this.setState({ displayText: "Empty Fields" }, () => {
@@ -108,7 +110,7 @@ class Signin extends Component {
 
     if (p != cp) {
       this.setState({ displayText: "Passwords don't match. Sorry!" });
-      document.getElementById("password").style.color = "red";
+      document.getElementById("regPassword").style.color = "red";
       document.getElementById("cpassword").style.color = "red";
       return;
     }
@@ -123,9 +125,9 @@ class Signin extends Component {
       method: "post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        username: this.state.userName,
+        username: this.state.regUserName,
         email: this.state.email,
-        password: this.state.password,
+        password: this.state.regPassword,
         first_name: this.state.firstName,
         last_name: this.state.lastName,
       }),
@@ -136,7 +138,7 @@ class Signin extends Component {
         if (!isNaN(responseText)) {
           localStorage.clear();
           localStorage.setItem("token", responseText);
-          localStorage.setItem("fatWalletUser", this.state.userName);
+          localStorage.setItem("fatWalletUser", this.state.regUserName);
           localStorage.setItem("auth", "true");
           localStorage.setItem("firstTime", "true");
           localStorage.setItem("justReg", "true");
@@ -169,7 +171,7 @@ class Signin extends Component {
         <Redirect
           to={{
             pathname: this.state.redirect,
-            state: { name: this.state.userName },
+            state: { name: localStorage.getItem("fatWalletUser") },
           }}
         />
       );
@@ -252,10 +254,21 @@ class Signin extends Component {
                 <div class="form-group">
                   <br />
                   <p>
-                    Do not have an account yet? Please fill in these additional
-                    details.
+                    Do not have an account yet? Please fill in these details.
                   </p>
                 </div>
+                <div class="form-group">
+                  <label id="regUserName">User Name</label>
+                  <input
+                    type="text"
+                    name="regUserName"
+                    value={this.state.name}
+                    class="form-control form-rounded"
+                    placeholder="User Name"
+                    onChange={this.handleChange}
+                  />
+                </div>
+
                 <div class="form-group">
                   <label id="email">Email</label>
                   <input
@@ -286,6 +299,17 @@ class Signin extends Component {
                     value={this.state.name}
                     class="form-control  form-rounded"
                     placeholder="Last Name"
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div class="form-group">
+                  <label id="regPassword">Password</label>
+                  <input
+                    type="password"
+                    name="regPassword"
+                    value={this.state.name}
+                    class="form-control form-rounded"
+                    placeholder="Password"
                     onChange={this.handleChange}
                   />
                 </div>
