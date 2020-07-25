@@ -44,13 +44,17 @@ class Graph extends React.Component {
         choice: lastChoice,
       });
     }
-    const response = await fetch("https://upper-inukshuk-26953.herokuapp.com/give_name", {
-      method: "post",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        username: this.props.username,
-      }),
-    });
+    const response = await fetch(
+      "https://upper-inukshuk-26953.herokuapp.com/give_name",
+      {
+        method: "post",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          username: this.props.username,
+          token: localStorage.getItem("token"),
+        }),
+      }
+    );
 
     const name = await response.text();
 
@@ -61,7 +65,7 @@ class Graph extends React.Component {
     return (
       <div style={{ width: "100vh" }}>
         <PrintLabel user={this.state.firstName} />
-        
+
         <Dropdown
           name="category"
           value={this.choice}
@@ -125,13 +129,10 @@ function PrintLabel(user) {
   for (i = 0; i < 3; i++) {
     strr = arr[i][0].concat(firstName);
     if ((hour > arr[i][1]) & (hour <= arr[i][2])) {
-      return (
-        <h3 style={{ padding: "3vh" }}>{strr}</h3>
-      );
+      return <h3 style={{ padding: "3vh" }}>{strr}</h3>;
     }
   }
   strr = arr[3][0].concat(firstName);
-
 
   return (
     <h3 style={{ paddingTop: "3vh", paddingBottom: "1vh", paddingLeft: "3vh" }}>

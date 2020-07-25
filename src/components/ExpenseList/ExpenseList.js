@@ -40,6 +40,7 @@ class ExpenseList extends React.Component {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           username: this.state.currentUser,
+          token: localStorage.getItem("token"),
         }),
       })
         .then((response) => response.json())
@@ -71,9 +72,8 @@ class ExpenseList extends React.Component {
         });
     }
   }
-  
-  render() {
 
+  render() {
     if (this.state.tableState >= 0) {
       return (
         <div
@@ -82,9 +82,6 @@ class ExpenseList extends React.Component {
           }}
           class="slide-top"
         >
-
-
-
           <MuiThemeProvider>
             <link
               rel="stylesheet"
@@ -94,7 +91,6 @@ class ExpenseList extends React.Component {
               style={{
                 background: "#FFAC9E",
               }}
-              
               title="Expense History"
               columns={this.state.columns}
               data={this.state.data}
@@ -164,6 +160,7 @@ class ExpenseList extends React.Component {
                                 amount: newData.amount,
                                 category: newData.category,
                                 description: newData.description,
+                                token: localStorage.getItem("token"),
                               }),
                             }
                           )
@@ -218,6 +215,8 @@ class ExpenseList extends React.Component {
                           headers: { "Content-type": "application/json" },
                           body: JSON.stringify({
                             id: oldData.id,
+                            username: this.state.currentUser,
+                            token: localStorage.getItem("token"),
                           }),
                         }
                       )

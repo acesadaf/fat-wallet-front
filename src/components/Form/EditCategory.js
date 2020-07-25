@@ -27,6 +27,7 @@ class EditCategory extends React.Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         username: this.state.currentUser,
+        token: localStorage.getItem("token"),
       }),
     })
       .then((response) => response.json())
@@ -110,6 +111,8 @@ class EditCategory extends React.Component {
                               name: this.state.currentUser,
                               old: oldData.category,
                               new: newData.category,
+                              username: this.state.currentUser,
+                              token: localStorage.getItem("token"),
                             }),
                           }
                         )
@@ -138,6 +141,8 @@ class EditCategory extends React.Component {
                           body: JSON.stringify({
                             name: this.state.currentUser,
                             category: oldData.category,
+                            username: this.state.currentUser,
+                            token: localStorage.getItem("token"),
                           }),
                         }
                       )
@@ -161,6 +166,8 @@ class EditCategory extends React.Component {
                           body: JSON.stringify({
                             name: this.state.currentUser,
                             category: newData.category,
+                            username: this.state.currentUser,
+                            token: localStorage.getItem("token"),
                           }),
                         }
                       )

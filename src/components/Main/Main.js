@@ -134,6 +134,7 @@ class Main extends Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         username: this.state.currentUser,
+        token: localStorage.getItem("token"),
       }),
     })
       .then((response) => response.json())

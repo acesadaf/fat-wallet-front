@@ -3,7 +3,6 @@ import { Spinner } from "react-bootstrap";
 import "./Bar_Pie.css";
 import ReactLogo from "./error.svg";
 
-
 import {
   BarChart,
   Bar,
@@ -73,6 +72,7 @@ export default class Example extends React.Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         username: this.state.currentUser,
+        token: localStorage.getItem("token"),
         duration: 5,
         month_or_week: 1,
       }),
@@ -157,7 +157,11 @@ export default class Example extends React.Component {
       return (
         <div>
           <div>
-            <img class="center scale-up-center"  src={ReactLogo} alt="React Logo" />
+            <img
+              class="center scale-up-center"
+              src={ReactLogo}
+              alt="React Logo"
+            />
           </div>
           <label
             className="lh-copy white f5 center"

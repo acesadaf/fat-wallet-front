@@ -49,6 +49,7 @@ export default class Example extends React.Component {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           username: this.state.currentUser,
+          token: localStorage.getItem("token"),
         }),
       }
     )
@@ -128,7 +129,11 @@ export default class Example extends React.Component {
       return (
         <div>
           <div>
-            <img class="center scale-up-center" src={ReactLogo} alt="React Logo" />
+            <img
+              class="center scale-up-center"
+              src={ReactLogo}
+              alt="React Logo"
+            />
           </div>
           <label
             className="lh-copy white f5 center"

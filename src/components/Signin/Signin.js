@@ -69,8 +69,9 @@ class Signin extends Component {
       .then((response) => response.text())
       .then((responseText) => {
         console.log(responseText);
-        if (responseText === "Signed in!") {
+        if (!isNaN(responseText)) {
           localStorage.clear();
+          localStorage.setItem("token", responseText);
           localStorage.setItem("fatWalletUser", this.state.userName);
           localStorage.setItem("auth", "true");
           localStorage.setItem("eBar", "true");
@@ -112,7 +113,7 @@ class Signin extends Component {
       return;
     }
 
-    if (!this.state.email.includes("@") | !this.state.email.includes(".com")) {
+    if (!this.state.email.includes("@") | !this.state.email.includes(".")) {
       this.setState({ displayText: "Invalid Email Address!" });
       document.getElementById("email").style.color = "red";
       return;
@@ -132,8 +133,9 @@ class Signin extends Component {
       .then((response) => response.text())
       .then((responseText) => {
         console.log(responseText);
-        if (responseText === "Added") {
+        if (!isNaN(responseText)) {
           localStorage.clear();
+          localStorage.setItem("token", responseText);
           localStorage.setItem("fatWalletUser", this.state.userName);
           localStorage.setItem("auth", "true");
           localStorage.setItem("firstTime", "true");

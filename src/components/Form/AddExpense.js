@@ -4,10 +4,9 @@ import "./AddExpense.css";
 //import "../checkMark.css";
 import { InputGroupAppend } from "react-bootstrap/InputGroup";
 import Stats from "./Stats";
-import 'font-awesome/css/font-awesome.min.css';
-import '../../fa-animation.css';
+import "font-awesome/css/font-awesome.min.css";
+import "../../fa-animation.css";
 import "./EditCategory.css";
-
 
 class AddExpense extends React.Component {
   constructor(props) {
@@ -47,6 +46,7 @@ class AddExpense extends React.Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         username: this.state.user,
+        token: localStorage.getItem("token"),
       }),
     })
       .then((response) => response.json())
@@ -121,6 +121,8 @@ class AddExpense extends React.Component {
         category: this.state.category,
         description: this.state.description,
         user: this.state.user,
+        username: this.state.user,
+        token: localStorage.getItem("token"),
       }),
     })
       .then((response) => response.text())
@@ -183,7 +185,7 @@ class AddExpense extends React.Component {
             //border: "1px solid black",
           }}
           onSubmit={this.handleSubmit}
-          class = "slide-up"
+          class="slide-up"
         >
           <Stats
             ref="stat"
@@ -197,7 +199,7 @@ class AddExpense extends React.Component {
             Key in your new expense
           </h3>
 
-          <Label statement = {this.state.displayText}/>
+          <Label statement={this.state.displayText} />
 
           <div className="form-group">
             <label id="name">Name</label>
@@ -232,9 +234,7 @@ class AddExpense extends React.Component {
               justifyContent: "space-around",
             }}
           >
-            <div className="form-group" 
-            style={{ width: "50%" }}
-            >
+            <div className="form-group" style={{ width: "50%" }}>
               <label id="date" for="date">
                 Incurred Date:{" "}
               </label>
@@ -248,9 +248,7 @@ class AddExpense extends React.Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div className="form-group" 
-            style={{ width: "50%" }}
-            >
+            <div className="form-group" style={{ width: "50%" }}>
               <label id="category">Purchase Category</label>
               <div
                 style={{
@@ -332,42 +330,43 @@ class AddExpense extends React.Component {
   }
 }
 
-function Label(statement){
-  if (statement.statement === ""){
-    return(
-        <div></div>
-    );
-  }
-  else if(statement.statement === "Expense Added"){
+function Label(statement) {
+  if (statement.statement === "") {
+    return <div></div>;
+  } else if (statement.statement === "Expense Added") {
     return (
       <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
-              <i class="start-icon fa fa-check-circle faa-tada animated"></i>
-              <strong>Well Done!</strong> Your expense has been added.
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
+                <i class="start-icon fa fa-check-circle faa-tada animated"></i>
+                <strong>Well Done!</strong> Your expense has been added.
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     );
-  }
-  else{
+  } else {
     return (
       <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-              <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div
+                class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                role="alert"
+                data-brk-library="component__alert"
+              >
                 <i class="start-icon fa fa-times-circle faa-flash animated"></i>
-                <strong class="font__weight-semibold">Oh snap!</strong> Change a few things up and try submitting again.
+                <strong class="font__weight-semibold">Oh snap!</strong> Change a
+                few things up and try submitting again.
               </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     );
   }
 }
