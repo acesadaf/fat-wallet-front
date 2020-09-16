@@ -11,7 +11,7 @@ Hi! Fat Wallet is an expense manager that offers proper expense tracking and var
 
 ## Fat Wallet in Action
 
- ***Registration and Sign-In***
+ ***Registration and Sign-In*** <br/>
 Users register using their name and email address, and they select a username of their choice. Usernames and email addresses must be unique and are checked for duplicates in the database. 
 
 ![alt text](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/Register.gif)
