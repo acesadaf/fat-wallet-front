@@ -29,5 +29,7 @@ Besides 5 predefined expense categories, users are also free to create custom ca
 ![custom categories](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/custom_category.gif)<br/>
 <br/>
 ***Expense Table*** 
-Users have access to their entire transaction history via a fully editable Expenses Table. Here they can make edits to previous expenses or delete them entirely. <br/>
+<br/>
+Users have access to their entire transaction history via a fully editable Expenses Table. Here they can make edits to previous expenses or delete them entirely. 
+<br/>
 ![Expenses Table](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/expense_table.gif)
