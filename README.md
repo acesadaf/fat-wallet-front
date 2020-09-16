@@ -15,17 +15,18 @@ This website is [hosted here.](https://acesadaf.github.io/fat-wallet-front/)
  ***Registration and Sign-In*** <br/>
 Users register using their name and email address, and they select a username of their choice. Usernames and email addresses must be unique and are checked for duplicates in the database. 
 
-![registration](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/Register.gif)
+![registration](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/Register.gif)<br/>
 <br/>
 ***Expense Addition*** <br/>
 When a user adds a new expense, they can immediately see the new expense reflected in the program through its visualizations.
 
-![expense addition](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/expense_add.gif)
+![expense addition](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/expense_add.gif)<br/>
 <br/>
 ***Custom Expense Categories***<br/>
+<br/>
 Besides 5 predefined expense categories, users are also free to create custom categories that better fit their personalized expense patterns.
 
-![custom categories](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/custom_category.gif)
+![custom categories](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/custom_category.gif)<br/>
 <br/>
 ***Expense Table*** <br/>
 Users have access to their entire transaction history via a fully editable Expenses Table. Here they can make edits to previous expenses or delete them entirely.
