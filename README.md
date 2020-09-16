@@ -22,12 +22,12 @@ When a user adds a new expense, they can immediately see the new expense reflect
 
 ![expense addition](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/expense_add.gif)<br/>
 <br/>
-***Custom Expense Categories***<br/>
+***Custom Expense Categories***
 <br/>
 Besides 5 predefined expense categories, users are also free to create custom categories that better fit their personalized expense patterns.
 
 ![custom categories](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/custom_category.gif)<br/>
 <br/>
-***Expense Table*** <br/>
-Users have access to their entire transaction history via a fully editable Expenses Table. Here they can make edits to previous expenses or delete them entirely.
+***Expense Table*** 
+Users have access to their entire transaction history via a fully editable Expenses Table. Here they can make edits to previous expenses or delete them entirely. <br/>
 ![Expenses Table](https://github.com/acesadaf/fat-wallet-front/blob/master/src/components/Image/expense_table.gif)
