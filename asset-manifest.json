@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/fat-wallet-front/static/css/main.906b6cb1.chunk.css",
-    "main.js": "/fat-wallet-front/static/js/main.5e0ebc73.chunk.js",
-    "main.js.map": "/fat-wallet-front/static/js/main.5e0ebc73.chunk.js.map",
+    "main.css": "/fat-wallet-front/static/css/main.379ab52c.chunk.css",
+    "main.js": "/fat-wallet-front/static/js/main.a8c0a636.chunk.js",
+    "main.js.map": "/fat-wallet-front/static/js/main.a8c0a636.chunk.js.map",
     "runtime-main.js": "/fat-wallet-front/static/js/runtime-main.47efe8b7.js",
     "runtime-main.js.map": "/fat-wallet-front/static/js/runtime-main.47efe8b7.js.map",
     "static/css/2.53b6c10d.chunk.css": "/fat-wallet-front/static/css/2.53b6c10d.chunk.css",
     "static/js/2.c477a149.chunk.js": "/fat-wallet-front/static/js/2.c477a149.chunk.js",
     "static/js/2.c477a149.chunk.js.map": "/fat-wallet-front/static/js/2.c477a149.chunk.js.map",
     "index.html": "/fat-wallet-front/index.html",
-    "precache-manifest.a7d341490289a923d955f58de988808c.js": "/fat-wallet-front/precache-manifest.a7d341490289a923d955f58de988808c.js",
+    "precache-manifest.4030f66f0dc4c99169363ecc6db5e5ce.js": "/fat-wallet-front/precache-manifest.4030f66f0dc4c99169363ecc6db5e5ce.js",
     "service-worker.js": "/fat-wallet-front/service-worker.js",
     "static/css/2.53b6c10d.chunk.css.map": "/fat-wallet-front/static/css/2.53b6c10d.chunk.css.map",
-    "static/css/main.906b6cb1.chunk.css.map": "/fat-wallet-front/static/css/main.906b6cb1.chunk.css.map",
+    "static/css/main.379ab52c.chunk.css.map": "/fat-wallet-front/static/css/main.379ab52c.chunk.css.map",
     "static/js/2.c477a149.chunk.js.LICENSE.txt": "/fat-wallet-front/static/js/2.c477a149.chunk.js.LICENSE.txt",
     "static/media/Wallet.png": "/fat-wallet-front/static/media/Wallet.317f2277.png",
     "static/media/error.svg": "/fat-wallet-front/static/media/error.14609ef0.svg",
@@ -22,7 +22,7 @@
     "static/js/runtime-main.47efe8b7.js",
     "static/css/2.53b6c10d.chunk.css",
     "static/js/2.c477a149.chunk.js",
-    "static/css/main.906b6cb1.chunk.css",
-    "static/js/main.5e0ebc73.chunk.js"
+    "static/css/main.379ab52c.chunk.css",
+    "static/js/main.a8c0a636.chunk.js"
   ]
 }
